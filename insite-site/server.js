@@ -21,6 +21,22 @@ const {
 } = process.env;
 
 // --- middleware ------------------------------------------------------------
+// Railway terminates TLS at its proxy and forwards the original protocol
+// in X-Forwarded-Proto. Tell Express to trust it so req.secure works.
+app.set('trust proxy', 1);
+
+// Force HTTPS in production. Runs before anything else so even API calls,
+// asset requests, and form posts get upgraded. Disabled when NODE_ENV !== 'production'
+// so local `npm run dev` over http://localhost still works.
+app.use((req, res, next) => {
+  if (process.env.NODE_ENV === 'production' && req.headers['x-forwarded-proto'] === 'http') {
+    return res.redirect(301, `https://${req.headers.host}${req.originalUrl}`);
+  }
+  // Tell browsers to stick to HTTPS for the next 6 months.
+  res.setHeader('Strict-Transport-Security', 'max-age=15552000; includeSubDomains');
+  next();
+});
+
 app.use(express.json({ limit: '32kb' }));
 app.use(express.static(path.join(__dirname, 'public'), {
   extensions: ['html'],
