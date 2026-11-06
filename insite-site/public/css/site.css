@@ -12,7 +12,7 @@
   --gold-deep:#a8701f;
   --cream:#f4ead6;
   --text:#ece4d2;
-  --muted:#a8b9b1;
+  --muted:#c7d2cb;
   --line:rgba(226,178,90,.28);
   --line-soft:rgba(236,228,210,.10);
   --glass:rgba(9,36,34,.58);
@@ -28,7 +28,7 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;background:var(--bg)}
-body{font-family:var(--body);font-weight:300;color:var(--text);background:
+body{font-family:var(--body);font-weight:400;color:var(--text);background:
   radial-gradient(1200px 700px at 100% 0%,rgba(47,179,165,.07),transparent 60%),
   radial-gradient(1000px 700px at 0% 100%,rgba(226,178,90,.06),transparent 60%),var(--bg);
   line-height:1.7;font-size:17px;overflow-x:hidden;-webkit-font-smoothing:antialiased}
@@ -53,7 +53,7 @@ h3{font-size:1.3rem}
 .eyebrow{display:inline-flex;align-items:center;gap:12px;font-family:var(--body);font-weight:500;font-size:.76rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold)}
 .eyebrow::before,.eyebrow.both::after{content:"";width:34px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
 .eyebrow.both::after{background:linear-gradient(90deg,var(--gold),transparent)}
-.lede{font-size:1.15rem;color:var(--muted);max-width:42rem}
+.lede{font-size:1.15rem;color:#d6ddd5;max-width:42rem;line-height:1.75}
 .center{text-align:center}.center .lede{margin-inline:auto}
 section{padding:110px 0;position:relative}
 .section-head{max-width:760px;margin-bottom:54px}
@@ -117,7 +117,7 @@ a.card:hover .more::after{transform:translateX(6px)}
 .brand .wm b{font-family:var(--disp);font-weight:600;font-size:1.35rem;letter-spacing:.12em}
 .brand .wm small{font-size:.58rem;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);margin-top:5px}
 .nav-links{display:flex;align-items:center;gap:6px;list-style:none}
-.nav-links>li>a{display:block;padding:10px 14px;text-decoration:none;color:var(--text);font-size:.84rem;letter-spacing:.14em;text-transform:uppercase;font-weight:400;border-radius:999px;transition:color .25s,background .25s}
+.nav-links>li>a{display:block;white-space:nowrap;padding:10px 14px;text-decoration:none;color:var(--text);font-size:.84rem;letter-spacing:.14em;text-transform:uppercase;font-weight:400;border-radius:999px;transition:color .25s,background .25s}
 .nav-links>li>a:hover,.nav-links a[aria-current="page"]{color:var(--gold-hi)}
 .nav-links a[aria-current="page"]{background:rgba(226,178,90,.08)}
 .has-menu{position:relative}
@@ -252,13 +252,13 @@ details.acc .acc-body p+p{margin-top:.8em}
 .field{margin-bottom:20px}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 label,.label{display:block;font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:500}
-input,textarea,select{width:100%;padding:15px 16px;border-radius:12px;border:1px solid var(--line-soft);background:rgba(3,14,15,.55);color:var(--cream);font-family:var(--body);font-size:1rem;font-weight:300;transition:border-color .3s,box-shadow .3s}
+input,textarea,select{width:100%;padding:15px 16px;border-radius:12px;border:1px solid var(--line-soft);background:rgba(3,14,15,.55);color:var(--cream);font-family:var(--body);font-size:1rem;font-weight:400;transition:border-color .3s,box-shadow .3s}
 input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 4px rgba(226,178,90,.12)}
 select option{background:var(--bg-2)}
 textarea{min-height:130px;resize:vertical}
 input[type=range]{padding:0;accent-color:var(--gold);background:none;border:0}
 .sms-disclosure{font-size:.82rem;color:var(--muted);line-height:1.6;background:rgba(255,255,255,.03);border:1px solid var(--line-soft);border-radius:12px;padding:14px 16px;margin:6px 0 18px}
-.consent{display:flex;gap:12px;align-items:flex-start;margin-bottom:24px;font-size:.9rem;color:var(--text);text-transform:none;letter-spacing:0;font-weight:300}
+.consent{display:flex;gap:12px;align-items:flex-start;margin-bottom:24px;font-size:.9rem;color:var(--text);text-transform:none;letter-spacing:0;font-weight:400}
 .consent input{width:18px;height:18px;margin-top:4px;flex:none;accent-color:var(--gold)}
 .form-note{font-size:.84rem;color:var(--muted);margin-top:16px}
 
