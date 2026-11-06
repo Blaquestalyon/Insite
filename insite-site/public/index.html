@@ -1,542 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- @head -->
 <title>Insite Integrative Wellness | Dr. Janelle Thompson, DNAP, CRNA — Houston, TX</title>
-<meta name="description" content="Insite Integrative Wellness — whole-person care in Houston, TX. Massage therapy, Reiki, yoga, culinary medicine, reflexology, aromatherapy, herbal medicine, and anesthesia services by Dr. Janelle Thompson, DNAP, CRNA. Home of the OPTIMIZE² framework.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
-<style>
-:root{
-  --ink:#143F42;
-  --teal:#1F6366;
-  --teal-soft:#E7EFED;
-  --teal-mist:#F2F6F5;
-  --amber:#C9821E;
-  --amber-deep:#A0660F;
-  --gold:#E0A752;
-  --paper:#FBF8F2;
-  --white:#FFFFFF;
-  --line:rgba(20,63,66,.14);
-  --shadow:0 18px 40px -22px rgba(20,63,66,.35);
-  --radius:14px;
-  --disp:'Marcellus',serif;
-  --body:'Jost',sans-serif;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-@media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  *,*::before,*::after{animation:none!important;transition:none!important}
-}
-body{font-family:var(--body);font-weight:400;color:var(--ink);background:var(--paper);line-height:1.65;font-size:17px}
-img{max-width:100%;display:block}
-a{color:var(--teal)}
-a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:4px}
-.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
-.eyebrow{font-family:var(--body);font-weight:600;font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--amber-deep)}
-h1,h2,h3{font-family:var(--disp);font-weight:400;line-height:1.15}
-h2{font-size:clamp(1.9rem,3.4vw,2.6rem);margin:.5rem 0 1rem}
-section{padding:88px 0}
-.section-head{max-width:640px;margin-bottom:44px}
-.lede{font-size:1.1rem;color:#3c5f60}
-
-/* ---------- Nav ---------- */
-.nav{position:sticky;top:0;z-index:50;background:rgba(251,248,242,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
-.brand img{height:44px;width:44px;object-fit:cover;border-radius:50%}
-.brand span{font-family:var(--disp);font-size:1.02rem;letter-spacing:.04em;color:var(--ink)}
-.brand b{color:var(--amber-deep);font-weight:400}
-.nav-links{display:flex;gap:28px;align-items:center;list-style:none}
-.nav-links a{text-decoration:none;font-size:.92rem;font-weight:500;color:var(--ink);letter-spacing:.03em}
-.nav-links a:hover{color:var(--amber-deep)}
-.btn{display:inline-block;padding:13px 26px;border-radius:999px;text-decoration:none;font-weight:600;font-size:.95rem;letter-spacing:.04em;border:1.5px solid transparent;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease,background .15s ease}
-.btn-amber{background:linear-gradient(135deg,var(--amber),var(--amber-deep));color:#fff;box-shadow:var(--shadow)}
-.btn-amber:hover{transform:translateY(-2px)}
-.btn-ghost{border-color:var(--teal);color:var(--teal);background:transparent}
-.btn-ghost:hover{background:var(--teal-soft)}
-.nav .btn{padding:10px 20px}
-.menu-toggle{display:none;background:none;border:none;font-size:1.6rem;color:var(--ink);cursor:pointer}
-
-/* ---------- Hero ---------- */
-.hero{padding:72px 0 96px;background:
-  radial-gradient(900px 480px at 85% -10%,rgba(31,99,102,.10),transparent 60%),
-  radial-gradient(700px 420px at 5% 110%,rgba(201,130,30,.12),transparent 60%),
-  var(--paper)}
-.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
-.hero h1{font-size:clamp(2.4rem,5vw,3.7rem);margin:14px 0 18px}
-.hero h1 em{font-style:normal;color:var(--amber-deep)}
-.hero p{font-size:1.16rem;color:#3c5f60;max-width:34rem}
-.hero-ctas{display:flex;gap:16px;margin-top:30px;flex-wrap:wrap}
-.hero-figure{position:relative;display:grid;place-items:center}
-.hero-figure img{width:min(420px,90%);filter:drop-shadow(0 24px 40px rgba(20,63,66,.18))}
-.hero-meta{display:flex;gap:28px;margin-top:38px;flex-wrap:wrap}
-.hero-meta div{border-left:3px solid var(--gold);padding-left:14px}
-.hero-meta strong{font-family:var(--disp);font-size:1.05rem;display:block}
-.hero-meta small{color:#4a6b6c;letter-spacing:.05em;text-transform:uppercase;font-size:.72rem;font-weight:600}
-
-/* ---------- About ---------- */
-.about{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.about-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:56px;align-items:start}
-.cred-card{background:linear-gradient(160deg,var(--ink),var(--teal));color:#f2f7f6;border-radius:var(--radius);padding:36px 32px;box-shadow:var(--shadow)}
-.cred-card h3{font-size:1.7rem;color:#fff}
-.cred-card .role{color:var(--gold);letter-spacing:.16em;text-transform:uppercase;font-size:.78rem;font-weight:600;margin:6px 0 18px}
-.cred-card p{color:#d6e4e2;font-size:1rem}
-.cred-card .addr{margin-top:22px;padding-top:20px;border-top:1px solid rgba(255,255,255,.2);font-size:.95rem;line-height:1.7}
-.cred-card .addr a{color:var(--gold);text-decoration:none}
-.about-copy p+p{margin-top:1em}
-
-/* ---------- OPTIMIZE² signature ---------- */
-.framework{background:
-  linear-gradient(180deg,var(--paper) 0%,var(--teal-mist) 18%,var(--teal-mist) 82%,var(--paper) 100%)}
-.fw-equation{font-family:var(--disp);font-size:clamp(1.2rem,2.4vw,1.6rem);color:var(--teal);margin-bottom:6px}
-.fw-equation b{color:var(--amber-deep);font-weight:400}
-.fw-cols-head{display:grid;grid-template-columns:1fr 88px 1fr;gap:0;align-items:end;margin:42px 0 10px}
-.fw-col-label{font-family:var(--disp);font-size:1.25rem}
-.fw-col-label small{display:block;font-family:var(--body);font-size:.76rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;margin-top:4px}
-.fw-coach{color:var(--teal);text-align:right;padding-right:18px}
-.fw-coach small{color:#4a7a7c}
-.fw-client{color:var(--amber-deep);padding-left:18px}
-.fw-client small{color:#b07f33}
-.fw-x{font-family:var(--disp);font-size:1.5rem;text-align:center;color:var(--ink)}
-.ledger{list-style:none;display:grid;gap:10px}
-.ledger li{display:grid;grid-template-columns:1fr 88px 1fr;align-items:center;background:var(--white);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:transform .15s ease,box-shadow .15s ease}
-.ledger li:hover,.ledger li:focus-within{transform:translateY(-2px);box-shadow:var(--shadow)}
-.ledger .coach,.ledger .client{padding:16px 20px;font-size:.99rem}
-.ledger .coach{text-align:right;color:#27575a}
-.ledger .coach b,.ledger .client b{display:block;font-weight:600;letter-spacing:.02em;color:var(--ink)}
-.ledger .client{color:#7a5a22}
-.ledger .letter{justify-self:center;display:grid;place-items:center;width:54px;height:54px;border-radius:50%;font-family:var(--disp);font-size:1.45rem;color:#fff;background:conic-gradient(from 220deg,var(--teal) 0 50%,var(--amber) 50% 100%);box-shadow:inset 0 0 0 3px var(--paper)}
-.fw-outcome{margin-top:34px;background:linear-gradient(135deg,var(--ink),var(--teal) 55%,var(--amber-deep));color:#fff;border-radius:var(--radius);padding:30px 34px;display:flex;gap:24px;align-items:center;flex-wrap:wrap;box-shadow:var(--shadow)}
-.fw-outcome .word{font-family:var(--disp);font-size:1.6rem;letter-spacing:.12em}
-.fw-outcome p{color:#e9f1ef;flex:1;min-width:260px;font-size:1rem}
-
-/* ---------- Services ---------- */
-.services{background:var(--white);border-top:1px solid var(--line)}
-.svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
-.svc{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px;display:flex;flex-direction:column;gap:10px;transition:transform .15s ease,box-shadow .15s ease}
-.svc:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
-.svc .glyph{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-size:1.2rem;background:var(--teal-soft);color:var(--teal)}
-.svc:nth-child(even) .glyph{background:#f6e8d2;color:var(--amber-deep)}
-.svc h3{font-size:1.18rem}
-.svc p{font-size:.94rem;color:#43625f}
-
-/* ---------- Anesthesia ---------- */
-.anesthesia{background:linear-gradient(150deg,var(--ink) 0%,var(--teal) 100%);color:#eef5f4}
-.anesthesia .eyebrow{color:var(--gold)}
-.anesthesia h2{color:#fff}
-.anesthesia .lede{color:#cfe0de}
-.an-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
-.an-cities{display:grid;gap:16px}
-.an-city{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:20px 24px}
-.an-city strong{font-family:var(--disp);font-size:1.15rem;color:var(--gold);display:block;margin-bottom:4px}
-.an-city p{font-size:.95rem;color:#d8e6e4}
-
-/* ---------- Contact ---------- */
-.contact{background:var(--paper)}
-.ct-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
-.ct-info{display:grid;gap:22px}
-.ct-item{border-left:3px solid var(--gold);padding-left:16px}
-.ct-item small{display:block;font-weight:600;letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;color:#4a6b6c}
-.ct-item a{font-family:var(--disp);font-size:1.15rem;text-decoration:none;color:var(--ink)}
-.ct-item p{font-family:var(--disp);font-size:1.1rem}
-form{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:34px 32px;box-shadow:var(--shadow)}
-.field{margin-bottom:18px}
-label{display:block;font-weight:600;font-size:.85rem;letter-spacing:.05em;margin-bottom:6px}
-input,textarea,select{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:10px;font-family:var(--body);font-size:1rem;background:var(--paper);color:var(--ink)}
-input:focus,textarea:focus,select:focus{border-color:var(--teal)}
-textarea{min-height:110px;resize:vertical}
-.sms-disclosure{font-size:.82rem;color:#4a6b6c;line-height:1.6;background:var(--teal-mist);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:6px 0 18px}
-.consent{display:flex;gap:10px;align-items:flex-start;margin-bottom:20px;font-size:.88rem;color:#3c5f60}
-.consent input{width:auto;margin-top:4px}
-.form-note{font-size:.8rem;color:#6c8587;margin-top:14px}
-
-/* ---------- Privacy ---------- */
-.privacy{background:var(--white);border-top:1px solid var(--line)}
-.privacy h2{font-size:1.9rem}
-.privacy h3{font-size:1.15rem;margin:28px 0 8px;color:var(--teal)}
-.privacy p,.privacy li{font-size:.95rem;color:#3c5f60}
-.privacy ul{padding-left:22px;margin:8px 0}
-.privacy .pledge{background:var(--teal-mist);border-left:4px solid var(--amber);padding:16px 20px;border-radius:0 10px 10px 0;margin:14px 0;font-weight:500;color:var(--ink)}
-.privacy .updated{font-size:.8rem;color:#6c8587;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
-
-/* ---------- Footer ---------- */
-footer{background:var(--ink);color:#cfe0de;padding:54px 0 34px}
-.ft-grid{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;align-items:flex-start}
-.ft-brand{font-family:var(--disp);font-size:1.2rem;color:#fff}
-.ft-brand small{display:block;font-family:var(--body);font-size:.82rem;color:#9dbcba;margin-top:6px;letter-spacing:.04em}
-footer nav ul{list-style:none;display:grid;gap:8px}
-footer a{color:#cfe0de;text-decoration:none;font-size:.92rem}
-footer a:hover{color:var(--gold)}
-.ft-bottom{border-top:1px solid rgba(255,255,255,.15);margin-top:36px;padding-top:22px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.82rem;color:#9dbcba}
-.ft-bottom a{font-size:.82rem;text-decoration:underline}
-
-/* ---------- Responsive ---------- */
-@media(max-width:960px){
-  .hero-grid,.about-grid,.an-grid,.ct-grid{grid-template-columns:1fr}
-  .hero-figure{order:-1}
-  .hero-figure img{width:min(300px,70%)}
-  .svc-grid{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:760px){
-  .nav-links{position:absolute;top:72px;left:0;right:0;background:var(--paper);flex-direction:column;align-items:flex-start;padding:20px 24px;gap:18px;border-bottom:1px solid var(--line);display:none}
-  .nav-links.open{display:flex}
-  .menu-toggle{display:block}
-  section{padding:64px 0}
-  .fw-cols-head{grid-template-columns:1fr 54px 1fr}
-  .ledger li{grid-template-columns:1fr 54px 1fr}
-  .ledger .letter{width:40px;height:40px;font-size:1.1rem}
-  .ledger .coach,.ledger .client{padding:12px 12px;font-size:.85rem}
-}
-@media(max-width:520px){
-  .svc-grid{grid-template-columns:1fr}
-  .ledger li{grid-template-columns:44px 1fr;grid-template-rows:auto auto}
-  .ledger .letter{grid-row:1/3;margin-left:8px;width:36px;height:36px;font-size:1rem}
-  .ledger .coach{order:1;text-align:left;border-bottom:1px dashed var(--line)}
-  .ledger .client{order:2}
-}
-</style>
+<meta name="description" content="Where clinical precision meets healing wisdom. Integrative wellness in Houston, TX — massage, Reiki, yoga, culinary medicine, reflexology, aromatherapy, herbal medicine and anesthesia services with Dr. Janelle Thompson, DNAP, CRNA. Home of OPTIMIZE².">
+<meta property="og:title" content="Insite Integrative Wellness — Where clinical precision meets healing wisdom">
+<meta property="og:description" content="Integrating clinical anesthesia with whole-person, evidence-informed wellness. Houston & Laredo, TX.">
+<meta property="og:type" content="website">
+<link rel="preload" as="image" href="/img/hero-plate.webp">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"MedicalBusiness","name":"Insite Integrative Wellness","url":"https://www.insiteintegrativewellness.com","telephone":"+1-713-551-1797","email":"info@insiteintegrativewellness.com","image":"https://www.insiteintegrativewellness.com/img/og.jpg","address":{"@type":"PostalAddress","streetAddress":"363 N Sam Houston Pkwy E, Ste 1440B","addressLocality":"Houston","addressRegion":"TX","postalCode":"77060","addressCountry":"US"},"founder":{"@type":"Person","name":"Dr. Janelle Thompson","honorificSuffix":"DNAP, CRNA"},"areaServed":["Houston, TX","Laredo, TX"]}
+</script>
 </head>
 <body>
+<!-- @header -->
+<main id="main">
 
-<!-- ============ NAV ============ -->
-<header class="nav">
-  <div class="wrap nav-inner">
-    <a class="brand" href="#top">
-      <img src="insite-logo.jpeg" alt="Insite Integrative Wellness logo">
-      <span>Insite <b>Integrative Wellness</b></span>
-    </a>
-    <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" onclick="toggleMenu(this)">&#9776;</button>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#about">About Dr.&nbsp;Thompson</a></li>
-      <li><a href="#optimize">OPTIMIZE&sup2;</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#anesthesia">Anesthesia</a></li>
-      <li><a href="/privacy">Privacy</a></li>
-      <li><a href="#contact" class="btn btn-amber">Request appointment</a></li>
-    </ul>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-media" aria-hidden="true">
+    <video autoplay muted loop playsinline preload="metadata" poster="/img/hero-plate.webp">
+      <source src="/video/hero.mp4" type="video/mp4">
+    </video>
   </div>
-</header>
-
-<!-- ============ HERO ============ -->
-<section class="hero" id="top">
-  <div class="wrap hero-grid">
-    <div>
-      <span class="eyebrow">Houston, Texas &middot; Whole-Person Care</span>
-      <h1>Where clinical precision meets <em>healing wisdom</em>.</h1>
-      <p>Insite Integrative Wellness blends evidence-based medicine with time-honored healing modalities — guided by Dr. Janelle Thompson, DNAP, CRNA, and powered by the proprietary OPTIMIZE&sup2; framework.</p>
-      <div class="hero-ctas">
-        <a class="btn btn-amber" href="#contact">Request an appointment</a>
-        <a class="btn btn-ghost" href="#optimize">Explore OPTIMIZE&sup2;</a>
-      </div>
-      <div class="hero-meta">
-        <div><strong>Dr. Janelle Thompson</strong><small>DNAP, CRNA</small></div>
-        <div><strong>8 Integrative Services</strong><small>One Practice</small></div>
-        <div><strong>Houston &amp; Laredo</strong><small>Anesthesia Coverage</small></div>
-      </div>
-    </div>
-    <div class="hero-figure">
-      <img src="insite-logo.jpeg" alt="Insite Integrative Wellness — interlocking rings emblem">
+  <canvas id="particles" aria-hidden="true"></canvas>
+  <div class="hero-copy">
+    <span class="eyebrow both">Dr. Janelle Thompson, DNAP, CRNA</span>
+    <h1 style="margin-top:18px">Where clinical precision meets <span class="italic gold">healing wisdom.</span></h1>
+    <p class="lede">Integrating clinical anesthesia with whole-person, evidence-informed wellness for optimal living.</p>
+    <a class="opt-pill" href="/optimize"><b class="gold">OPTIMIZE&sup2;</b> Coach &times; Client = Outcome</a>
+    <div class="ctas" style="justify-content:center">
+      <a class="btn btn-gold" href="/contact">Request an Appointment</a>
+      <a class="btn btn-ghost" href="/lab/">Explore the Wellness Lab</a>
     </div>
   </div>
+  <span class="scroll-cue" aria-hidden="true"></span>
 </section>
 
-<!-- ============ ABOUT ============ -->
-<section class="about" id="about">
-  <div class="wrap about-grid">
-    <div class="cred-card">
-      <h3>Dr. Janelle Thompson</h3>
-      <p class="role">DNAP &middot; CRNA &middot; Founder</p>
-      <p>A doctorally prepared Certified Registered Nurse Anesthetist, Dr. Thompson brings the rigor of the operating room to the practice of whole-person wellness — meeting each client where they are and guiding them toward where they want to be.</p>
-      <div class="addr">
-        363 N Sam Houston Pkwy E, Ste 1440B<br>
-        Houston, TX 77060<br><br>
-        <a href="tel:+17135511797">713-551-1797</a><br>
-        <a href="mailto:info@insiteintegrativewellness.com">info@insiteintegrativewellness.com</a>
-      </div>
-    </div>
-    <div class="about-copy">
-      <span class="eyebrow">About the Practice</span>
-      <h2>One practitioner. Two worlds of care. A single standard: yours.</h2>
-      <p>Most wellness practices ask you to choose between modern medicine and integrative healing. Insite Integrative Wellness refuses that choice. Here, the science of anesthesia and clinical outcomes lives alongside massage therapy, energy work, culinary medicine, and botanical care — because your body doesn't separate them, and neither should your care.</p>
-      <p>Every client relationship at Insite is structured around OPTIMIZE&sup2;, a dual-performance framework that pairs practitioner-guided strategy with client-owned execution. It's how a hopeful intention becomes a sustained result.</p>
-    </div>
-  </div>
-</section>
+<!-- PILLARS -->
+<div class="pillars wrap">
+  <ul>
+    <li><a href="/about"><svg><use href="#i-lotus"/></svg>Whole-Person<br>Care</a></li>
+    <li><a href="/optimize"><svg><use href="#i-plan"/></svg>Personalized<br>Plans</a></li>
+    <li><a href="/services"><svg><use href="#i-sprout"/></svg>Integrative<br>Therapies</a></li>
+    <li><a href="/anesthesia"><svg><use href="#i-steth"/></svg>Clinical<br>Anesthesia</a></li>
+    <li><a href="/optimize"><svg><use href="#i-rings"/></svg>OPTIMIZE&sup2;</a></li>
+    <li><a href="/contact"><svg><use href="#i-cal"/></svg>Request an<br>Appointment</a></li>
+  </ul>
+</div>
 
-<!-- ============ OPTIMIZE² ============ -->
-<section class="framework" id="optimize">
+<!-- TWO WORLDS -->
+<section>
   <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow">The Proprietary Framework</span>
-      <h2>OPTIMIZE&sup2;</h2>
-      <p class="fw-equation">Coach <b>&times;</b> Client <b>=</b> Outcome</p>
-      <p class="lede">Two aligned systems. One optimized life. The coach drives assessment and intervention. The client drives ownership and execution — for optimum performance under any life condition.</p>
+    <div class="section-head center reveal">
+      <span class="eyebrow both">One practitioner &middot; Two worlds of care</span>
+      <h2>Your body doesn&rsquo;t separate them. <span class="italic gold">Neither do we.</span></h2>
+      <p class="lede">Most practices ask you to choose between modern medicine and integrative healing. Insite refuses that choice &mdash; the rigor of the operating room lives alongside the restoration of the treatment room.</p>
     </div>
-
-    <div class="fw-cols-head" aria-hidden="true">
-      <div class="fw-col-label fw-coach">Coach OPTIMIZE<small>Observe to Expand</small></div>
-      <div class="fw-x">&times;</div>
-      <div class="fw-col-label fw-client">Client OPTIMIZE<small>Own to Elevate</small></div>
-    </div>
-
-    <ul class="ledger">
-      <li><div class="coach"><b>Observe</b>client condition</div><div class="letter">O</div><div class="client"><b>Own</b>current reality</div></li>
-      <li><div class="coach"><b>Pattern</b>behaviors, triggers, trends</div><div class="letter">P</div><div class="client"><b>Prioritize</b>what matters most</div></li>
-      <li><div class="coach"><b>Target</b>high-leverage interventions</div><div class="letter">T</div><div class="client"><b>Train</b>skills and habits</div></li>
-      <li><div class="coach"><b>Implement</b>personalized strategies</div><div class="letter">I</div><div class="client"><b>Integrate</b>them into daily life</div></li>
-      <li><div class="coach"><b>Measure</b>progress and response</div><div class="letter">M</div><div class="client"><b>Measure</b>what is working</div></li>
-      <li><div class="coach"><b>Intensify</b>what is producing results</div><div class="letter">I</div><div class="client"><b>Iterate</b>from real feedback</div></li>
-      <li><div class="coach"><b>Zero-out</b>drains and saboteurs</div><div class="letter">Z</div><div class="client"><b>Zero-in</b>on key adjustments</div></li>
-      <li><div class="coach"><b>Expand</b>capacity under pressure</div><div class="letter">E</div><div class="client"><b>Elevate</b>into sustained performance</div></li>
-    </ul>
-
-    <div class="fw-outcome">
-      <span class="word">OPTIMIZED</span>
-      <p>Perform, adapt, and elevate under changing life conditions through aligned strategy and execution. OPTIMIZE&sup2; = coach-guided strategy &times; client-owned execution.</p>
+    <div class="worlds reveal">
+      <a class="world" href="/services">
+        <img src="/img/svc-yoga.webp" alt="" loading="lazy">
+        <div class="w-body"><span class="eyebrow">Healing Wisdom</span><h3>Integrative Therapies</h3><p>Massage, energy work, yoga, culinary and botanical medicine &mdash; time-honored modalities, applied with intention.</p></div>
+      </a>
+      <span class="x" aria-hidden="true">&times;</span>
+      <a class="world" href="/anesthesia">
+        <img src="/img/svc-anesthesia.webp" alt="" loading="lazy">
+        <div class="w-body"><span class="eyebrow">Clinical Precision</span><h3>Anesthesia Services</h3><p>Surgical and OB/GYN anesthesia from a doctorally prepared CRNA, in Houston and Laredo.</p></div>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- ============ SERVICES ============ -->
-<section class="services" id="services">
+<div class="marquee" aria-hidden="true"><div class="marquee-track">
+  <span>Massage Therapy</span><span>Reiki &amp; Healing Touch</span><span>Yoga</span><span>Culinary Medicine</span><span>Reflexology</span><span>Aromatherapy</span><span>Herbal Medicine</span><span>Anesthesia Services</span>
+  <span>Massage Therapy</span><span>Reiki &amp; Healing Touch</span><span>Yoga</span><span>Culinary Medicine</span><span>Reflexology</span><span>Aromatherapy</span><span>Herbal Medicine</span><span>Anesthesia Services</span>
+</div></div>
+
+<!-- SERVICES -->
+<section>
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <span class="eyebrow">Integrative Services</span>
-      <h2>Eight pathways. One whole person.</h2>
-      <p class="lede">Each modality below can stand alone — and each grows stronger when woven into your OPTIMIZE&sup2; plan.</p>
+      <h2>Eight pathways. <span class="italic gold">One whole person.</span></h2>
+      <p class="lede">Each modality stands on its own &mdash; and grows stronger when woven into your OPTIMIZE&sup2; plan.</p>
     </div>
-    <div class="svc-grid">
-      <article class="svc">
-        <div class="glyph">&#10047;</div>
-        <h3>Massage Therapy</h3>
-        <p>Soft tissue manipulation and body movement to promote health and well-being. Massage can help treat physical disorders and improve clinical outcomes.</p>
-      </article>
-      <article class="svc">
-        <div class="glyph">&#10048;</div>
-        <h3>Reiki &amp; Healing Touch</h3>
-        <p>A method of energy healing built on balance, restoring the body's natural energy fields. Reiki can increase vitality, balance emotions, improve health, and may help relieve symptoms of various conditions.</p>
-      </article>
-      <article class="svc">
-        <div class="glyph">&#9775;</div>
-        <h3>Yoga</h3>
-        <p>Specific postures and movements combined with breathing to unify your mind and body.</p>
-      </article>
-      <article class="svc">
-        <div class="glyph">&#127859;</div>
-        <h3>Culinary Medicine</h3>
-        <p>The evidence-based science of food, nutrition, and medicine joined with the joy and art of cooking. May use special diets — including vegan, low-carb, and low-FODMAP — to improve wellness and help improve or reverse common chronic diseases.</p>
-      </article>
-      <article class="svc">
-        <div class="glyph">&#9737;</div>
-        <h3>Reflexology</h3>
-        <p>Targeted pressure applied to specific points on the feet, hands, and ears — believed to balance vital energy, promote deep relaxation, and encourage the body's natural healing processes.</p>
-      </article>
-      <article class="svc">
-        <div class="glyph">&#10046;</div>
-        <h3>Aromatherapy</h3>
-        <p>A complementary holistic practice using natural plant extracts — essential oils — to promote psychological and physical well-being through the olfactory system or direct skin absorption.</p>
-      </article>
-      <article class="svc">
-        <div class="glyph">&#127807;</div>
-        <h3>Herbal Medicine &amp; Supplements</h3>
-        <p>Botanicals, vitamins, and minerals used to treat specific conditions or bolster immunity.</p>
-      </article>
-      <article class="svc">
-        <div class="glyph">&#10010;</div>
-        <h3>Anesthesia Services</h3>
-        <p>Surgical and OB/GYN anesthesia provided by Dr. Thompson at credentialed facilities in Houston and Laredo, TX. <a href="#anesthesia">Learn more below</a>.</p>
-      </article>
+    <div class="grid g4">
+      <a class="tile reveal" href="/services#massage"><img src="/img/svc-massage.webp" alt="" loading="lazy"><div class="t-body"><h3><svg class="lotus"><use href="#i-lotus"/></svg>Massage Therapy</h3><p>Soft-tissue work to release tension and support recovery.</p></div></a>
+      <a class="tile reveal" data-d="1" href="/services#reiki"><img src="/img/svc-reiki.webp" alt="" loading="lazy"><div class="t-body"><h3><svg class="lotus"><use href="#i-lotus"/></svg>Reiki &amp; Healing Touch</h3><p>Gentle energy work to restore balance and calm.</p></div></a>
+      <a class="tile reveal" data-d="2" href="/services#yoga"><img src="/img/svc-yoga.webp" alt="" loading="lazy"><div class="t-body"><h3><svg class="lotus"><use href="#i-lotus"/></svg>Yoga</h3><p>Breath and movement that unify mind and body.</p></div></a>
+      <a class="tile reveal" data-d="3" href="/services#culinary"><img src="/img/svc-culinary.webp" alt="" loading="lazy"><div class="t-body"><h3><svg class="lotus"><use href="#i-sprout"/></svg>Culinary Medicine</h3><p>The science of nutrition, the joy of cooking.</p></div></a>
+      <a class="tile reveal" href="/services#reflexology"><img src="/img/svc-reflexology.webp" alt="" loading="lazy"><div class="t-body"><h3><svg class="lotus"><use href="#i-foot"/></svg>Reflexology</h3><p>Targeted pressure for deep relaxation.</p></div></a>
+      <a class="tile reveal" data-d="1" href="/services#aromatherapy"><img src="/img/svc-aroma.webp" alt="" loading="lazy"><div class="t-body"><h3><svg class="lotus"><use href="#i-drop"/></svg>Aromatherapy</h3><p>Botanical essences for body and mood.</p></div></a>
+      <a class="tile reveal" data-d="2" href="/services#herbal"><img src="/img/svc-herbal.webp" alt="" loading="lazy"><div class="t-body"><h3><svg class="lotus"><use href="#i-sprout"/></svg>Herbal Medicine &amp; Supplements</h3><p>Botanicals, vitamins and minerals, thoughtfully chosen.</p></div></a>
+      <a class="tile reveal" data-d="3" href="/anesthesia"><img src="/img/svc-anesthesia.webp" alt="" loading="lazy"><div class="t-body"><h3><svg class="lotus"><use href="#i-pulse"/></svg>Anesthesia Services</h3><p>Surgical &amp; OB/GYN anesthesia &middot; Houston &amp; Laredo.</p></div></a>
     </div>
   </div>
 </section>
 
-<!-- ============ ANESTHESIA ============ -->
-<section class="anesthesia" id="anesthesia">
-  <div class="wrap an-grid">
-    <div>
+<!-- OPTIMIZE² TEASER -->
+<section style="background:radial-gradient(60% 80% at 50% 50%,rgba(23,87,79,.35),transparent 70%)">
+  <div class="wrap center">
+    <span class="eyebrow both reveal">The Proprietary Framework</span>
+    <h2 class="reveal"><span class="gold">OPTIMIZE&sup2;</span></h2>
+    <div class="equation reveal"><span>Coach</span><span class="op">&times;</span><span>Client</span><span class="op">=</span><span class="gold">Outcome</span></div>
+    <p class="lede reveal" style="margin-top:18px">Practitioner-guided strategy multiplied by client-owned execution. Tap a letter to see both sides of the equation.</p>
+    <div class="letters reveal" id="optLetters"></div>
+    <div class="pair" id="optPair" aria-live="polite"></div>
+    <div class="ctas"><a class="btn btn-ghost" href="/optimize">Explore the full framework</a></div>
+  </div>
+</section>
+
+<!-- BREATHE -->
+<section>
+  <div class="wrap split">
+    <div class="reveal">
+      <span class="eyebrow">A moment for you</span>
+      <h2>Before anything else, <span class="italic gold">breathe.</span></h2>
+      <p class="lede">Follow the orb: breathe in as it grows, out as it softens. Slow, steady breathing is one of the simplest ways to help your nervous system shift toward rest.</p>
+      <div class="ctas"><a class="btn btn-gold" href="/lab/breathe">Open the Breath Studio</a></div>
+    </div>
+    <div class="reveal" data-d="2">
+      <div class="orb-stage" aria-hidden="true"><span class="orb-ring"></span><span class="orb-ring"></span><span class="orb auto"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- LAB -->
+<section>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">The Wellness Lab</span>
+      <h2>More than a practice. <span class="italic gold">A resource.</span></h2>
+      <p class="lede">Free, interactive tools to explore your wellness between visits &mdash; designed by a clinician, built for real life.</p>
+    </div>
+    <div class="grid g3">
+      <a class="card reveal" href="/lab/breathe"><div class="icon"><svg><use href="#i-wind"/></svg></div><h3>Breath Studio</h3><p>Box, 4-7-8, coherent and sigh breathing &mdash; guided in real time.</p><span class="more">Begin</span></a>
+      <a class="card reveal" data-d="1" href="/lab/compass"><div class="icon"><svg><use href="#i-compass"/></svg></div><h3>Wellness Compass</h3><p>Six questions to discover which therapies may suit you best.</p><span class="more">Take the quiz</span></a>
+      <a class="card reveal" data-d="2" href="/lab/reflexology"><div class="icon"><svg><use href="#i-foot"/></svg></div><h3>Reflexology Map</h3><p>An interactive foot map with a guided self-care sequence.</p><span class="more">Explore</span></a>
+      <a class="card reveal" href="/lab/aroma"><div class="icon"><svg><use href="#i-drop"/></svg></div><h3>Aroma Blend Builder</h3><p>Choose an intention, get a balanced blend and safe dilution.</p><span class="more">Build a blend</span></a>
+      <a class="card reveal" data-d="1" href="/lab/kitchen"><div class="icon"><svg><use href="#i-bowl"/></svg></div><h3>Culinary Medicine Kitchen</h3><p>Anti-inflammatory, vegan, low-carb and low-FODMAP recipes.</p><span class="more">Cook</span></a>
+      <a class="card reveal" data-d="2" href="/lab/surgery-ready"><div class="icon"><svg><use href="#i-shield"/></svg></div><h3>Surgery-Ready Checker</h3><p>Which supplements to discuss with your anesthesia provider before surgery.</p><span class="more">Check yours</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ANESTHESIA -->
+<section>
+  <div class="wrap split rev">
+    <div class="reveal">
       <span class="eyebrow">Clinical Anesthesia Care</span>
-      <h2>Wellness that follows you into the operating room.</h2>
-      <p class="lede">For patients who require surgery or OB/GYN anesthesia, Dr. Thompson personally provides anesthesia care at facilities where she is credentialed — bringing the same whole-person attention from the wellness studio to the surgical suite.</p>
+      <h2>Wellness that follows you <span class="italic gold">into the operating room.</span></h2>
+      <p class="lede">Dr. Thompson personally provides surgical and OB/GYN anesthesia at credentialed facilities &mdash; bringing whole-person attention from the wellness studio to the surgical suite.</p>
+      <ul class="ticks"><li>Surgical anesthesia</li><li>OB/GYN anesthesia</li><li>Houston &amp; Laredo, TX</li></ul>
+      <div class="ctas"><a class="btn btn-ghost" href="/anesthesia">Anesthesia services</a></div>
     </div>
-    <div class="an-cities">
-      <div class="an-city">
-        <strong>Houston, TX</strong>
-        <p>Surgical and OB/GYN anesthesia at credentialed Houston-area facilities.</p>
-      </div>
-      <div class="an-city">
-        <strong>Laredo, TX</strong>
-        <p>Surgical and OB/GYN anesthesia at credentialed Laredo facilities.</p>
-      </div>
-      <div class="an-city">
-        <strong>Ask before you schedule</strong>
-        <p>Contact us to confirm whether your surgical facility is one where Dr. Thompson is credentialed.</p>
-      </div>
-    </div>
+    <div class="media frame-gold reveal" data-d="2"><img src="/img/page-anesthesia.webp" alt="A calm, modern operating room lit in teal" loading="lazy"></div>
   </div>
 </section>
 
-<!-- ============ CONTACT ============ -->
-<section class="contact" id="contact">
+<!-- CTA -->
+<section>
   <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow">Get Started</span>
-      <h2>Request an appointment</h2>
-      <p class="lede">Tell us a little about yourself and what brings you in. We'll reach out to schedule your first visit.</p>
-    </div>
-    <div class="ct-grid">
-      <div class="ct-info">
-        <div class="ct-item">
-          <small>Visit</small>
-          <p>363 N Sam Houston Pkwy E, Ste 1440B<br>Houston, TX 77060</p>
-        </div>
-        <div class="ct-item">
-          <small>Call or Text</small>
-          <a href="tel:+17135511797">713-551-1797</a>
-        </div>
-        <div class="ct-item">
-          <small>Email</small>
-          <a href="mailto:info@insiteintegrativewellness.com">info@insiteintegrativewellness.com</a>
-        </div>
-        <div class="ct-item">
-          <small>Web</small>
-          <a href="https://www.insiteintegrativewellness.com">www.insiteintegrativewellness.com</a>
-        </div>
-      </div>
-
-      <!-- Form posts to /api/appointment on the same origin. Backend
-           writes the submission to Airtable and emails info@insiteintegrativewellness.com
-           via Web3Forms. SMS disclosure and consent checkbox are required
-           for TCR registration — do not remove. -->
-      <form id="apptForm" novalidate>
-        <div class="field">
-          <label for="f-name">Full name</label>
-          <input id="f-name" name="name" type="text" autocomplete="name" required>
-        </div>
-        <div class="field">
-          <label for="f-email">Email</label>
-          <input id="f-email" name="email" type="email" autocomplete="email" required>
-        </div>
-        <div class="field">
-          <label for="f-phone">Mobile phone</label>
-          <input id="f-phone" name="phone" type="tel" autocomplete="tel" placeholder="(713) 555-0123">
-        </div>
-        <div class="field">
-          <label for="f-service">Service of interest</label>
-          <select id="f-service" name="service">
-            <option>Massage Therapy</option>
-            <option>Reiki &amp; Healing Touch</option>
-            <option>Yoga</option>
-            <option>Culinary Medicine</option>
-            <option>Reflexology</option>
-            <option>Aromatherapy</option>
-            <option>Herbal Medicine &amp; Supplements</option>
-            <option>Anesthesia Services</option>
-            <option>Not sure yet — help me choose</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="f-msg">How can we help?</label>
-          <textarea id="f-msg" name="message"></textarea>
-        </div>
-
-        <p class="sms-disclosure">By entering your phone number, you are agreeing to receive text messages from Insite Integrative Wellness. Message &amp; data rates may apply. Message frequency may vary. Reply HELP for more information. You can reply STOP or UNSUBSCRIBE to opt-out. See our <a href="/privacy">Privacy Policy</a> for additional details.</p>
-
-        <label class="consent">
-          <input type="checkbox" id="f-consent" name="sms_consent" value="yes">
-          <span>I agree to receive text messages from Insite Integrative Wellness at the mobile number provided. Consent is not a condition of purchase.</span>
-        </label>
-
-        <button class="btn btn-amber" type="submit" id="apptSubmit">Send appointment request</button>
-        <p class="form-note" id="apptStatus">Submitting this form sends your details to our office. We respect your privacy — see our <a href="/privacy">Privacy Policy</a>.</p>
-      </form>
+    <div class="cta-band reveal">
+      <svg class="rings" viewBox="0 0 400 400" aria-hidden="true"><g fill="none" stroke="url(#rg)" stroke-width="1"><circle cx="160" cy="170" r="110"/><circle cx="240" cy="170" r="110"/><circle cx="200" cy="240" r="110"/></g><defs><linearGradient id="rg" x1="0" x2="1"><stop offset="0" stop-color="#2fb3a5"/><stop offset="1" stop-color="#e2b25a"/></linearGradient></defs></svg>
+      <span class="eyebrow both">Begin your OPTIMIZE&sup2; journey</span>
+      <h2>Your best life is a <span class="italic gold">shared equation.</span></h2>
+      <p class="lede" style="margin-inline:auto">Tell us what brings you in. We&rsquo;ll design a plan around you &mdash; and walk it with you.</p>
+      <div class="ctas" style="justify-content:center"><a class="btn btn-gold" href="/contact">Request an Appointment</a><a class="btn btn-ghost" href="tel:+17135511797">Call 713-551-1797</a></div>
     </div>
   </div>
 </section>
-
-<!-- ============ PRIVACY POLICY ============ -->
-<!-- ============ FOOTER ============ -->
-<footer>
-  <div class="wrap">
-    <div class="ft-grid">
-      <div>
-        <p class="ft-brand">Insite Integrative Wellness</p>
-        <small class="ft-brand" style="font-family:var(--body)">Dr. Janelle Thompson, DNAP, CRNA<br>363 N Sam Houston Pkwy E, Ste 1440B<br>Houston, TX 77060</small>
-      </div>
-      <nav aria-label="Footer">
-        <ul>
-          <li><a href="#about">About</a></li>
-          <li><a href="#optimize">OPTIMIZE&sup2;</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#anesthesia">Anesthesia</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="/privacy">Privacy Policy</a></li>
-        </ul>
-      </nav>
-      <nav aria-label="Legal">
-        <ul>
-          <li><a href="/privacy">Privacy Policy</a></li>
-          <li><a href="tel:+17135511797">713-551-1797</a></li>
-          <li><a href="mailto:info@insiteintegrativewellness.com">info@insiteintegrativewellness.com</a></li>
-        </ul>
-      </nav>
-    </div>
-    <div class="ft-bottom">
-      <span>&copy; 2026 Insite Integrative Wellness. All rights reserved.</span>
-      <span><a href="/privacy">Privacy Policy</a></span>
-    </div>
-  </div>
-</footer>
-
+</main>
+<!-- @footer -->
+<script src="/js/optimize-data.js"></script>
 <script>
-function toggleMenu(btn){
-  var links=document.getElementById('navLinks');
-  var open=links.classList.toggle('open');
-  btn.setAttribute('aria-expanded',open?'true':'false');
-}
-// Close mobile menu when a link is tapped
-document.querySelectorAll('#navLinks a').forEach(function(a){
-  a.addEventListener('click',function(){
-    document.getElementById('navLinks').classList.remove('open');
+(function(){
+  var L=document.getElementById('optLetters'),P=document.getElementById('optPair');
+  OPT.forEach(function(o,i){
+    var b=document.createElement('button');b.className='letter';b.textContent=o.l;b.setAttribute('aria-label',o.coach[0]+' and '+o.client[0]);
+    b.onclick=function(){show(i)};L.appendChild(b);
   });
-});
-// Appointment form: POST to backend, which emails + stores in Airtable.
-document.getElementById('apptForm').addEventListener('submit',async function(e){
-  e.preventDefault();
-  var form=e.target;
-  var statusEl=document.getElementById('apptStatus');
-  var btn=document.getElementById('apptSubmit');
-  var name=document.getElementById('f-name').value.trim();
-  var email=document.getElementById('f-email').value.trim();
-  var phone=document.getElementById('f-phone').value.trim();
-  var service=document.getElementById('f-service').value;
-  var msg=document.getElementById('f-msg').value.trim();
-  var consent=document.getElementById('f-consent').checked;
-  if(!name||!email){statusEl.textContent='Please provide your name and email so we can reach you.';statusEl.style.color='#A0660F';return;}
-  if(phone&&!consent){statusEl.textContent='If you would like us to text you, please check the consent box. Otherwise, you may leave the phone field blank.';statusEl.style.color='#A0660F';return;}
-  btn.disabled=true;btn.textContent='Sending\u2026';
-  statusEl.textContent='Sending your request\u2026';statusEl.style.color='';
-  try{
-    var res=await fetch('/api/appointment',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({name:name,email:email,phone:phone,service:service,message:msg,sms_consent:consent})
-    });
-    var data=await res.json().catch(function(){return {};});
-    if(!res.ok||data.ok===false){throw new Error(data.error||('Request failed ('+res.status+')'));}
-    form.reset();
-    btn.disabled=false;btn.textContent='Send appointment request';
-    statusEl.innerHTML='<strong>Thank you, '+name.replace(/[<>&]/g,'')+'.</strong> Your request has been received \u2014 we will reach out shortly to schedule your first visit.';
-    statusEl.style.color='#1F6366';
-  }catch(err){
-    btn.disabled=false;btn.textContent='Send appointment request';
-    statusEl.textContent='Sorry \u2014 we could not submit your request. Please call 713-551-1797 or email info@insiteintegrativewellness.com directly. ('+err.message+')';
-    statusEl.style.color='#A0660F';
+  function show(i){
+    var o=OPT[i];[].forEach.call(L.children,function(b,j){b.classList.toggle('on',j===i)});
+    P.innerHTML='<div class="c"><small>Coach</small><b>'+o.coach[0]+'</b><div>'+o.coach[1]+'</div></div><span class="times">&times;</span><div class="k"><small>Client</small><b>'+o.client[0]+'</b><div>'+o.client[1]+'</div></div>';
   }
-});
+  show(0);
+  var i=0,t=setInterval(function(){i=(i+1)%OPT.length;show(i)},3200);
+  L.addEventListener('click',function(){clearInterval(t)});
+})();
 </script>
 </body>
 </html>

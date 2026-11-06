@@ -4,6 +4,7 @@
 // via Web3Forms (free, unlimited, no SMTP setup needed).
 
 import express from 'express';
+import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -38,10 +39,24 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json({ limit: '32kb' }));
-app.use(express.static(path.join(__dirname, 'public'), {
-  extensions: ['html'],
-  maxAge: '1h',
-}));
+
+// Pages: extensionless URLs map to public/<path>.html or public/<path>/index.html,
+// with <!-- @head --> / <!-- @header --> / <!-- @footer --> swapped for the shared partials.
+const PUBLIC = path.join(__dirname, 'public');
+const partial = name => fs.readFileSync(path.join(__dirname, 'partials', `${name}.html`), 'utf8');
+const render = file => fs.readFileSync(file, 'utf8').replace(/<!--\s*@(head|header|footer)\s*-->/g, (_, n) => partial(n));
+
+app.get(/\.html$/, (req, res) => res.redirect(301, req.path.replace(/(index)?\.html$/, '') || '/'));
+app.get(/^[^.]*$/, (req, res, next) => {
+  const p = req.path.replace(/\/$/, '') || '/index';
+  for (const f of [`${p}.html`, `${p}/index.html`]) {
+    const file = path.join(PUBLIC, f);
+    if (!file.startsWith(PUBLIC + path.sep)) return next();
+    if (fs.existsSync(file)) return res.type('html').send(render(file));
+  }
+  next();
+});
+app.use(express.static(PUBLIC, { index: false, maxAge: '7d' }));
 
 // simple per-IP rate limit (in-memory; fine for a single Railway instance)
 const hits = new Map();
@@ -172,6 +187,8 @@ app.post('/api/appointment', rateLimit, async (req, res) => {
     return res.status(500).json({ ok: false, error: 'Server error.' });
   }
 });
+
+app.use((req, res) => res.status(404).type('html').send(render(path.join(PUBLIC, '404.html'))));
 
 app.listen(PORT, () => {
   console.log(`Insite site listening on :${PORT}`);

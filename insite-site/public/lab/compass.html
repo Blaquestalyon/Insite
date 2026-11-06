@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- @head -->
+<title>Wellness Compass — Find Your Therapies | Insite Integrative Wellness</title>
+<meta name="description" content="Answer six quick questions and discover which integrative therapies — massage, Reiki, yoga, culinary medicine, reflexology, aromatherapy or herbal medicine — may suit you best.">
+<style>
+.quiz{max-width:860px;margin:0 auto}
+.bar{height:3px;background:var(--line-soft);border-radius:3px;overflow:hidden;margin-bottom:40px}
+.bar i{display:block;height:100%;width:0;background:var(--gold-grad);transition:width .6s var(--ease)}
+.q{animation:qin .7s var(--ease)}
+@keyframes qin{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.q h2{font-size:clamp(1.6rem,3.2vw,2.4rem)}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px}
+.opt{cursor:pointer;text-align:left;font:inherit;color:var(--cream);padding:22px 24px;font-size:1.02rem}
+.opt:hover{border-color:var(--gold);transform:translateY(-3px)}
+.res{display:grid;gap:16px;margin-top:30px}
+.res .card{display:grid;grid-template-columns:120px 1fr;gap:22px;align-items:center;padding:18px}
+.res img{width:120px;height:100px;object-fit:cover;border-radius:12px}
+.meter{height:6px;border-radius:6px;background:var(--line-soft);margin:10px 0;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--gold-grad);width:0;transition:width 1.2s var(--ease)}
+@media(max-width:620px){.opts{grid-template-columns:1fr}.res .card{grid-template-columns:1fr}.res img{width:100%;height:160px}}
+</style>
+</head>
+<body>
+<!-- @header -->
+<main id="main">
+<section style="padding-top:150px;min-height:90vh">
+  <div class="wrap">
+    <p class="crumbs"><a href="/">Home</a> / <a href="/lab/">Wellness Lab</a> / <span>Wellness Compass</span></p>
+    <div class="quiz" id="quiz" aria-live="polite"></div>
+  </div>
+</section>
+</main>
+<!-- @footer -->
+<script>
+(function(){
+  var M={
+    massage:['Massage Therapy','Soft-tissue work to release tension and support recovery.','svc-massage','massage'],
+    reiki:['Reiki & Healing Touch','Gentle energy work for calm and emotional balance.','svc-reiki','reiki'],
+    yoga:['Yoga','Breath and movement to build strength, flexibility and resilience.','svc-yoga','yoga'],
+    culinary:['Culinary Medicine','Food as medicine — practical, delicious changes that last.','svc-culinary','culinary'],
+    reflexology:['Reflexology','Targeted pressure on the feet, hands and ears for deep relaxation.','svc-reflexology','reflexology'],
+    aromatherapy:['Aromatherapy','Botanical essences to support mood, calm and rest.','svc-aroma','aromatherapy'],
+    herbal:['Herbal Medicine & Supplements','Botanicals and nutrients, chosen with safety first.','svc-herbal','herbal']
+  };
+  var Q=[
+    ['What&rsquo;s asking for your attention most right now?',[
+      ['Stress, worry or overwhelm',{reiki:2,aromatherapy:2,yoga:1,reflexology:1}],
+      ['Physical tension, stiffness or pain',{massage:3,reflexology:1,yoga:1}],
+      ['Energy, digestion or weight',{culinary:3,herbal:2}],
+      ['Sleep that isn&rsquo;t restful',{aromatherapy:2,reiki:1,yoga:1,massage:1}]]],
+    ['How do you most like to recharge?',[
+      ['Being cared for, hands-on',{massage:2,reflexology:2}],
+      ['Moving my body',{yoga:3}],
+      ['Stillness and quiet',{reiki:2,aromatherapy:1}],
+      ['Learning something new and doing it myself',{culinary:2,herbal:2}]]],
+    ['How do you feel about touch?',[
+      ['I love a firm, therapeutic touch',{massage:3,reflexology:1}],
+      ['Light, gentle touch is best',{reiki:2,reflexology:2}],
+      ['I&rsquo;d prefer little or no touch',{yoga:1,culinary:1,aromatherapy:1,herbal:1}]]],
+    ['Your relationship with food right now:',[
+      ['I want to eat in a way that helps me heal',{culinary:3}],
+      ['I&rsquo;m curious about herbs and supplements',{herbal:3}],
+      ['I follow, or need, a special diet',{culinary:2,herbal:1}],
+      ['Food isn&rsquo;t my focus at the moment',{}]]],
+    ['How do you respond to scents?',[
+      ['I love aromas &mdash; they change my mood',{aromatherapy:3}],
+      ['Neutral &mdash; nice, not necessary',{aromatherapy:1}],
+      ['I&rsquo;m sensitive to fragrance',{aromatherapy:-4}]]],
+    ['How much time can you give your wellness each week?',[
+      ['A few minutes a day, at home',{yoga:1,aromatherapy:1,culinary:1}],
+      ['One dedicated session',{massage:1,reiki:1,reflexology:1}],
+      ['Both &mdash; I&rsquo;m ready to commit',{yoga:1,massage:1,culinary:1,herbal:1}]]]
+  ];
+  var el=document.getElementById('quiz'),score,step,picks;
+  function start(){score={};Object.keys(M).forEach(function(k){score[k]=0});step=0;picks=[];
+    el.innerHTML='<div class="center q"><span class="eyebrow both">Wellness Compass</span><h1 style="font-size:clamp(2.2rem,5vw,3.8rem);margin-top:14px">Find your <span class="italic gold">true north.</span></h1><p class="lede" style="margin-top:16px">Six quick questions. A personalized starting point you can bring to your first visit. Nothing is sent anywhere.</p><div class="ctas"><button class="btn btn-gold" id="b0">Begin</button></div></div>';
+    document.getElementById('b0').onclick=ask;}
+  function ask(){
+    if(step===Q.length)return result();
+    var q=Q[step];
+    el.innerHTML='<div class="bar"><i style="width:'+(step/Q.length*100)+'%"></i></div><div class="q"><span class="eyebrow">Question '+(step+1)+' of '+Q.length+'</span><h2>'+q[0]+'</h2><div class="opts">'+q[1].map(function(o,i){return '<button class="card opt" data-i="'+i+'">'+o[0]+'</button>'}).join('')+'</div></div>';
+    el.querySelector('.opts').onclick=function(e){var b=e.target.closest('.opt');if(!b)return;var o=q[1][+b.dataset.i];
+      for(var k in o[1])score[k]+=o[1][k];picks.push(o[0].replace(/&[a-z]+;/g,"'"));step++;ask();};
+    var f=el.querySelector('.opt');f&&f.focus({preventScroll:true});
+  }
+  function result(){
+    var ks=Object.keys(score).sort(function(a,b){return score[b]-score[a]}),top=ks.slice(0,3),max=Math.max(1,score[top[0]]);
+    var note='Wellness Compass results — top matches: '+top.map(function(k){return M[k][0]}).join(', ')+'.';
+    el.innerHTML='<div class="q"><span class="eyebrow">Your Compass</span><h2>Your best-fit <span class="italic gold">starting points</span></h2><p class="lede">Based on your answers, these therapies may be a good fit. Dr. Thompson will refine them into a personalized OPTIMIZE&sup2; plan.</p><div class="res">'+
+      top.map(function(k,i){var m=M[k],pct=Math.round(60+40*Math.max(0,score[k])/max-i*4);return '<div class="card"><img src="/img/'+m[2]+'.webp" alt=""><div><h3>'+m[0]+'</h3><div class="meter"><i data-w="'+pct+'"></i></div><p>'+m[1]+'</p><a class="more" href="/services#'+m[3]+'" style="text-decoration:none">Learn more</a></div></div>'}).join('')+
+      '</div><div class="ctas"><a class="btn btn-gold" id="book" href="/contact?service='+encodeURIComponent(M[top[0]][0])+'&from=lab">Book with these results</a><button class="btn btn-ghost" id="again">Retake</button></div><p class="notice" style="margin-top:24px">This tool offers general suggestions, not a diagnosis. Share your health history with your clinician before starting any new therapy.</p></div>';
+    requestAnimationFrame(function(){setTimeout(function(){el.querySelectorAll('.meter i').forEach(function(i){i.style.width=i.dataset.w+'%'})},50)});
+    document.getElementById('book').dataset.note=note;
+    document.getElementById('again').onclick=start;
+  }
+  start();
+})();
+</script>
+</body>
+</html>

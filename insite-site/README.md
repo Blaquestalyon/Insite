@@ -138,15 +138,26 @@ Railway redeploys automatically. No other steps.
 
 ```
 insite-site/
+├── partials/               ← head.html, header.html (nav + SVG icon sprite), footer.html
 ├── public/
-│   ├── index.html          ← the website (unchanged design + form posts to /api/appointment)
-│   └── insite-logo.jpeg
-├── server.js               ← Express server: serves /public + handles POST /api/appointment
+│   ├── index.html          ← home (video hero)
+│   ├── services.html, optimize.html, about.html, anesthesia.html, contact.html, privacy.html, 404.html
+│   ├── lab/                ← Wellness Lab: index, breathe, compass, reflexology, aroma, kitchen, surgery-ready
+│   ├── css/site.css        ← the whole design system
+│   ├── js/site.js          ← nav, scroll reveals, particles, parallax
+│   ├── img/, video/        ← Higgsfield-generated imagery and hero loops
+│   └── robots.txt, sitemap.xml
+├── server.js               ← Express: renders pages with partials + handles POST /api/appointment
 ├── package.json
-├── .env.example            ← template for required environment variables
-├── .gitignore
+├── .env.example
 └── README.md
 ```
+
+Pages are plain HTML. `server.js` maps `/about` → `public/about.html` and `/lab/` → `public/lab/index.html`,
+replacing `<!-- @head -->`, `<!-- @header -->` and `<!-- @footer -->` with the files in `partials/`.
+Edit the nav or footer once in `partials/` and every page picks it up. Run `npm run dev` to preview at http://localhost:3000.
+
+To add Dr. Thompson's headshot, drop it at `public/img/dr-thompson.jpg` and swap the commented `<img>` in `about.html`.
 
 ## Security notes
 
