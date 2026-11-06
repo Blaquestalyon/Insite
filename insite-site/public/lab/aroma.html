@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- @head -->
+<title>Aroma Blend Builder — Essential Oil Recipes &amp; Dilution | Insite Integrative Wellness</title>
+<meta name="description" content="Build an essential oil blend by intention — calm, sleep, focus, uplift, breathe easy, ease tension — with safe dilution calculated for diffuser, roller, massage oil or bath.">
+<style>
+.ab{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start}
+.step-l{font-size:.74rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin:28px 0 12px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.bottle{position:relative;padding:34px}
+.oil{display:grid;grid-template-columns:1fr auto;gap:6px 16px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line-soft)}
+.oil b{font-family:var(--disp);font-weight:500;color:var(--cream);font-size:1.1rem}
+.oil .drops{font-family:var(--disp);color:var(--gold-hi);font-size:1.4rem}
+.oil small{grid-column:1/-1;color:var(--muted);font-size:.85rem}
+.dots{display:flex;gap:4px;flex-wrap:wrap;grid-column:1/-1}
+.dots i{width:9px;height:12px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:var(--gold-grad);animation:drip .6s var(--ease) both}
+@keyframes drip{from{transform:translateY(-12px);opacity:0}to{transform:none;opacity:1}}
+.howto{margin-top:20px;color:var(--text)}
+.warn{margin-top:16px}
+@media(max-width:920px){.ab{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<!-- @header -->
+<main id="main">
+<section style="padding-top:150px">
+  <div class="wrap">
+    <p class="crumbs"><a href="/">Home</a> / <a href="/lab/">Wellness Lab</a> / <span>Aroma Blend Builder</span></p>
+    <div class="ab">
+      <div>
+        <span class="eyebrow">Aroma Blend Builder</span>
+        <h1 style="font-size:clamp(2rem,4.4vw,3.4rem)">Blend with <span class="italic gold">purpose.</span></h1>
+        <p class="lede" style="margin-top:14px">Pick an intention and how you&rsquo;ll use it. We&rsquo;ll balance the oils and do the dilution math for you.</p>
+        <p class="step-l">1 &middot; Intention</p><div class="chips" id="intent"></div>
+        <p class="step-l">2 &middot; Format</p><div class="chips" id="format"></div>
+        <p class="step-l" id="strengthL">3 &middot; Strength</p><div class="chips" id="strength"></div>
+      </div>
+      <div class="card bottle" id="out" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+<section style="padding-top:0"><div class="wrap narrow">
+  <p class="notice"><strong>Use essential oils safely.</strong> Never ingest them or apply undiluted. Patch-test new blends on the inner forearm. Keep away from eyes, children and pets (cats are especially sensitive to diffused oils). If you are pregnant, nursing, have epilepsy, asthma, or take medications, check with your clinician first.</p>
+  <div class="ctas"><a class="btn btn-gold" href="/contact?service=Aromatherapy">Book an aromatherapy consult</a></div>
+</div></section>
+</main>
+<!-- @footer -->
+<script>
+(function(){
+  var OILS={
+    lavender:['Lavender','Floral, soothing heart of many calming blends.'],
+    bergamot:['Bergamot (FCF)','Bright citrus calm. Choose bergapten-free (FCF) to avoid sun sensitivity.'],
+    frank:['Frankincense','Resinous and grounding; slows the breath.'],
+    chamomile:['Roman Chamomile','Gentle, apple-like and deeply settling.'],
+    cedar:['Cedarwood','Woody base note that anchors a sleep blend.'],
+    rosemary:['Rosemary','Herbaceous and clarifying. Avoid with epilepsy or pregnancy.'],
+    pepper:['Peppermint','Cool and awakening. Not for use near the faces of young children.'],
+    lemon:['Lemon','Clean, bright citrus. Cold-pressed lemon can cause sun sensitivity on skin.'],
+    orange:['Sweet Orange','Cheerful, round citrus; not phototoxic.'],
+    ylang:['Ylang Ylang','Rich floral; a little goes a long way.'],
+    euca:['Eucalyptus','Fresh and opening. Avoid with children under 10 and near the face.'],
+    tea:['Tea Tree','Clean, medicinal note that brightens a breathing blend.'],
+    marjoram:['Sweet Marjoram','Warm, herbal; classic for tight muscles.'],
+    ginger:['Ginger','Spicy warmth for comforting massage blends.']
+  };
+  var I={calm:['Calm',{lavender:3,bergamot:2,frank:1}],sleep:['Sleep',{lavender:3,chamomile:2,cedar:1}],focus:['Focus',{rosemary:2,lemon:2,pepper:1}],
+    uplift:['Uplift',{orange:3,bergamot:1,ylang:1}],breathe:['Breathe easy',{euca:2,tea:1,pepper:1}],ease:['Ease tension',{lavender:2,marjoram:2,ginger:1}]};
+  // ml of carrier (or water) and how to use; diffuser/bath use fixed drop totals instead of %.
+  var F={diffuser:['Diffuser',null,'Add to the water reservoir (about 100 ml). Diffuse 30–60 minutes, then take a break.',6],
+    roller:['10 ml roller',10,'Add oils to a 10 ml roller, top with jojoba or fractionated coconut oil, roll onto wrists and neck.'],
+    massage:['30 ml massage oil',30,'Mix into 2 tablespoons of carrier oil; warm between palms before applying.'],
+    bath:['Bath',null,'Mix into 1 tablespoon of carrier oil or unscented body wash first — oils don’t dissolve in water.',4]};
+  var S={'1':['Gentle 1%','Face, sensitive skin, older adults'],'2':['Everyday 2%','Most adult body use'],'3':['Targeted 3%','Short-term, small areas']};
+  var st={i:'calm',f:'roller',s:'2'};
+  function chips(id,obj,key,lab){var el=document.getElementById(id);el.innerHTML=Object.keys(obj).map(function(k){return '<button class="chip" data-k="'+k+'">'+(lab?lab(obj[k]):obj[k][0])+'</button>'}).join('');
+    el.onclick=function(e){var c=e.target.closest('.chip');if(!c)return;st[key]=c.dataset.k;render();};}
+  chips('intent',I,'i');chips('format',F,'f');chips('strength',S,'s',function(v){return v[0]});
+  // split total drops by parts, largest remainder, at least 1 each
+  function split(total,parts){var keys=Object.keys(parts),sum=keys.reduce(function(a,k){return a+parts[k]},0);
+    var raw=keys.map(function(k){return parts[k]*total/sum}),out=raw.map(function(r){return Math.max(1,Math.floor(r))});
+    var left=total-out.reduce(function(a,b){return a+b},0);
+    raw.map(function(r,j){return [r-Math.floor(r),j]}).sort(function(a,b){return b[0]-a[0]}).forEach(function(p){if(left>0){out[p[1]]++;left--}});
+    var o={};keys.forEach(function(k,j){o[k]=out[j]});return o;}
+  function render(){
+    ['intent','format','strength'].forEach(function(id,n){document.querySelectorAll('#'+id+' .chip').forEach(function(c){c.classList.toggle('on',c.dataset.k===st['ifs'[n]])})});
+    var f=F[st.f],pct=+st.s,usesPct=f[1]!==null;
+    document.getElementById('strength').style.display=document.getElementById('strengthL').style.display=usesPct?'':'none';
+    var total=usesPct?Math.max(3,Math.round(f[1]*20*pct/100)):f[3]; // ≈20 drops per ml
+    var mix=split(total,I[st.i][1]);
+    document.getElementById('out').innerHTML='<span class="eyebrow">Your blend</span><h2 style="font-size:2rem;margin-top:8px">'+I[st.i][0]+' <span class="italic gold">&middot; '+f[0]+'</span></h2>'+
+      Object.keys(mix).map(function(k){return '<div class="oil"><b>'+OILS[k][0]+'</b><span class="drops">'+mix[k]+' drop'+(mix[k]>1?'s':'')+'</span><div class="dots">'+Array(mix[k]+1).join('<i></i>')+'</div><small>'+OILS[k][1]+'</small></div>'}).join('')+
+      '<p class="howto"><b style="color:var(--gold)">Total '+total+' drops'+(usesPct?' &middot; '+pct+'% dilution':'')+'.</b> '+f[2]+'</p>'+
+      (st.i==='breathe'?'<p class="notice warn">Eucalyptus and peppermint are not suitable for young children or anyone with asthma triggered by strong scents.</p>':'')+
+      (st.i==='focus'?'<p class="notice warn">Rosemary and peppermint: avoid during pregnancy or with a seizure disorder.</p>':'');
+    [].forEach.call(document.querySelectorAll('.dots i'),function(d,n){d.style.animationDelay=(n*40)+'ms'});
+  }
+  render();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- @head -->
+<title>Interactive Reflexology Foot Map | Insite Integrative Wellness</title>
+<meta name="description" content="Explore an interactive reflexology foot map — tap each zone to learn the traditional reflex areas and follow a guided five-minute self-care routine.">
+<style>
+.rx{display:grid;grid-template-columns:.9fr 1.1fr;gap:60px;align-items:center}
+#foot{width:100%;max-width:340px;margin:0 auto;overflow:visible}
+#foot{filter:drop-shadow(0 0 30px rgba(226,178,90,.18))}
+#foot .z{cursor:pointer;transition:opacity .4s;opacity:.14}
+#foot .z:hover{opacity:.45}
+#foot .z.on{opacity:1}
+#foot .z:focus{outline:none}#foot .z:focus-visible{opacity:1;stroke:#fff;stroke-width:2}
+.zone-info{min-height:250px}
+.zone-info h3{font-size:1.6rem}
+.zlist{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.routine{counter-reset:r;list-style:none;display:grid;gap:12px;margin-top:24px}
+.routine li{counter-increment:r;display:grid;grid-template-columns:44px 1fr;gap:16px;align-items:start;padding:16px 18px;border:1px solid var(--line-soft);border-radius:14px;background:var(--glass);transition:border-color .3s,box-shadow .3s}
+.routine li::before{content:counter(r);width:36px;height:36px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--gold);color:var(--gold);font-family:var(--disp)}
+.routine li.on{border-color:var(--gold);box-shadow:0 0 30px -10px rgba(226,178,90,.6)}
+.routine b{color:var(--cream);font-weight:500}
+.routine p{color:var(--muted);font-size:.94rem}
+@media(max-width:920px){.rx{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<!-- @header -->
+<main id="main">
+<section style="padding-top:150px">
+  <div class="wrap">
+    <p class="crumbs"><a href="/">Home</a> / <a href="/lab/">Wellness Lab</a> / <span>Reflexology Map</span></p>
+    <div class="section-head"><span class="eyebrow">Reflexology Map</span><h1 style="font-size:clamp(2rem,4.4vw,3.4rem)">A map of the body, <span class="italic gold">beneath your feet.</span></h1>
+    <p class="lede" style="margin-top:14px">Traditional reflexology charts link areas of the foot to areas of the body. Tap a zone of the right sole to explore it.</p></div>
+    <div class="rx">
+      <svg id="foot" viewBox="0 0 260 540" role="group" aria-label="Right foot sole, reflexology zones">
+        <defs>
+          <clipPath id="sole"><path d="M62 112C58 84 92 70 132 72c40 2 72 14 76 46 4 40-12 82-18 124-6 44 6 84 6 128 0 70-26 140-78 142-52 2-72-58-70-118 2-44 12-80 6-122C48 200 66 150 62 112z"/></clipPath>
+          <linearGradient id="zg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f8dc98"/><stop offset="1" stop-color="#b07a24"/></linearGradient>
+          <linearGradient id="zt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5fd3c4"/><stop offset="1" stop-color="#17574f"/></linearGradient>
+        </defs>
+        <path d="M62 112C58 84 92 70 132 72c40 2 72 14 76 46 4 40-12 82-18 124-6 44 6 84 6 128 0 70-26 140-78 142-52 2-72-58-70-118 2-44 12-80 6-122C48 200 66 150 62 112z" fill="#0b2826" stroke="rgba(226,178,90,.5)"/>
+        <g class="z" data-z="head" tabindex="0" fill="url(#zg)"><ellipse cx="86" cy="46" rx="26" ry="34"/><ellipse cx="134" cy="34" rx="14" ry="20"/><ellipse cx="164" cy="42" rx="12.5" ry="17"/><ellipse cx="189" cy="58" rx="11" ry="15"/><ellipse cx="208" cy="82" rx="9.5" ry="12.5"/></g>
+        <g clip-path="url(#sole)">
+          <rect class="z" data-z="neck" tabindex="0" x="0" y="60" width="260" height="46" fill="url(#zt)"/>
+          <rect class="z" data-z="chest" tabindex="0" x="0" y="108" width="260" height="92" fill="url(#zg)"/>
+          <rect class="z" data-z="upper" tabindex="0" x="0" y="202" width="260" height="92" fill="url(#zt)"/>
+          <rect class="z" data-z="lower" tabindex="0" x="0" y="296" width="260" height="96" fill="url(#zg)"/>
+          <rect class="z" data-z="heel" tabindex="0" x="0" y="394" width="260" height="150" fill="url(#zt)"/>
+          <rect class="z" data-z="spine" tabindex="0" x="44" y="60" width="22" height="480" fill="#f8dc98"/>
+        </g>
+        <g stroke="rgba(6,23,26,.6)" stroke-width="1" clip-path="url(#sole)" pointer-events="none"><path d="M0 107H260M0 201H260M0 295H260M0 393H260"/></g>
+        <text x="130" y="534" text-anchor="middle" fill="#a8b9b1" font-size="11" font-family="Jost" letter-spacing="3">RIGHT SOLE</text>
+      </svg>
+      <div>
+        <div class="card zone-info" id="info" aria-live="polite"></div>
+        <div class="zlist" id="zlist"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:20px">
+  <div class="wrap narrow">
+    <div class="section-head"><span class="eyebrow">Self-care</span><h2>A five-minute <span class="italic gold">foot ritual</span></h2>
+    <p class="lede">Sit comfortably with one foot across your knee, a little lotion or oil on your hands. Press the button and we&rsquo;ll guide you, one minute per step.</p></div>
+    <ol class="routine" id="routine">
+      <li><div><b>Warm &amp; open</b><p>Hold the foot between both palms, then gently twist it like wringing a towel, heel to toes.</p></div></li>
+      <li><div><b>Thumb-walk the spine</b><p>Inch your thumb along the inner edge from heel to big toe in tiny caterpillar steps.</p></div></li>
+      <li><div><b>Circle the toes</b><p>Gently rotate and squeeze each toe, finishing with slow circles on the big-toe pad.</p></div></li>
+      <li><div><b>Knead the arch</b><p>With your knuckles, make slow, firm circles through the arch, easing off any tender spots.</p></div></li>
+      <li><div><b>Settle the heel</b><p>Cup and press the heel, then stroke from toes to ankle three times. Breathe out slowly with each stroke.</p></div></li>
+    </ol>
+    <div class="ctas"><button class="btn btn-gold" id="guide">Guide me</button><a class="btn btn-ghost" href="/contact?service=Reflexology">Book a reflexology session</a></div>
+    <p class="notice" style="margin-top:28px">Reflexology is a relaxation practice; its maps come from tradition, not diagnosis. Skip areas with wounds, swelling, or pain. If you have diabetes with reduced sensation, a blood-clot history, or are pregnant, check with your clinician first.</p>
+  </div>
+</section>
+</main>
+<!-- @footer -->
+<script>
+(function(){
+  var Z={
+    head:['Toes','Head, brain & sinuses','Gentle squeezing and circling the toes is traditionally linked with easing head tension and congestion.'],
+    neck:['Base of the toes','Neck, eyes & ears','The ridge beneath the toes corresponds to the neck and senses — a common spot to hold tension after screen time.'],
+    chest:['Ball of the foot','Chest, lungs & heart area','Broad, rhythmic thumb pressure here is often paired with slow breathing to open the chest.'],
+    upper:['Upper arch','Stomach, liver & pancreas region','The area above the waistline of the foot links to the upper abdomen and digestion.'],
+    lower:['Lower arch','Intestines & lower abdomen','Clockwise circles through the lower arch are a classic part of a calming digestive sequence.'],
+    heel:['Heel','Pelvis, lower back & sciatic area','A firm, cupping pressure on the heel is traditionally used for lower-back ease and grounding.'],
+    spine:['Inner edge','Spine','The long inner curve of the foot mirrors the spine — thumb-walk it from heel to big toe.']
+  };
+  var info=document.getElementById('info'),list=document.getElementById('zlist'),zs=document.querySelectorAll('#foot .z');
+  list.innerHTML=Object.keys(Z).map(function(k){return '<button class="chip" data-z="'+k+'">'+Z[k][0]+'</button>'}).join('');
+  function pick(k){
+    var z=Z[k];zs.forEach(function(e){e.classList.toggle('on',e.dataset.z===k)});
+    list.querySelectorAll('.chip').forEach(function(c){c.classList.toggle('on',c.dataset.z===k)});
+    info.innerHTML='<span class="eyebrow">'+z[0]+'</span><h3 style="margin-top:10px">'+z[1]+'</h3><p style="margin-top:10px">'+z[2]+'</p>';
+  }
+  zs.forEach(function(e){e.setAttribute('role','button');e.setAttribute('aria-label',Z[e.dataset.z][0]+': '+Z[e.dataset.z][1]);
+    e.addEventListener('click',function(){pick(e.dataset.z)});e.addEventListener('keydown',function(ev){if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();pick(e.dataset.z)}});
+  });
+  list.onclick=function(e){var c=e.target.closest('.chip');c&&pick(c.dataset.z)};
+  pick('head');
+
+  var steps=document.querySelectorAll('#routine li'),btn=document.getElementById('guide'),t,i;
+  function go(){steps.forEach(function(s,j){s.classList.toggle('on',j===i)});
+    if(i>=steps.length){btn.textContent='Guide me';return;}
+    steps[i].scrollIntoView({behavior:'smooth',block:'center'});var left=60;
+    (function tick(){btn.textContent='Step '+(i+1)+' · '+left+'s · Stop';if(left--<=0){i++;go();return;}t=setTimeout(tick,1000)})();}
+  btn.onclick=function(){if(t&&i<steps.length){clearTimeout(t);t=null;steps.forEach(function(s){s.classList.remove('on')});btn.textContent='Guide me';return;}i=0;go();};
+})();
+</script>
+</body>
+</html>

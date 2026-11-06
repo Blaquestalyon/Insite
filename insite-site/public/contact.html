@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- @head -->
+<title>Request an Appointment | Insite Integrative Wellness — Houston, TX</title>
+<meta name="description" content="Request an appointment with Insite Integrative Wellness. Call or text 713-551-1797 or send a request online.">
+<style>
+.ct{grid-template-columns:.8fr 1.2fr}
+@media(max-width:920px){.ct{grid-template-columns:1fr}}
+.ct-info{display:grid;gap:18px;min-width:0}
+.ct-item a{overflow-wrap:anywhere}
+.ct-item{display:flex;gap:16px;align-items:flex-start}
+.ct-item .icon{margin:0;flex:none}
+.ct-item small{display:block;font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+.ct-item a,.ct-item p{font-family:var(--disp);font-size:1.1rem;color:var(--cream);text-decoration:none}
+#apptStatus.ok{color:#8de3d6}#apptStatus.err{color:var(--gold-hi)}
+</style>
+</head>
+<body>
+<!-- @header -->
+<main id="main">
+<section class="page-hero" style="min-height:56vh">
+  <div class="bg"><img src="/img/page-contact.webp" alt=""></div>
+  <div class="wrap">
+    <p class="crumbs"><a href="/">Home</a> / <span>Contact</span></p>
+    <span class="eyebrow">Get Started</span>
+    <h1>Request an <span class="italic gold">appointment</span></h1>
+    <p class="lede" style="margin-top:18px">Tell us a little about yourself and what brings you in. We&rsquo;ll reach out to schedule your first visit.</p>
+  </div>
+</section>
+
+<section style="padding-top:60px">
+  <div class="wrap split ct" style="align-items:start">
+    <div class="ct-info reveal">
+      <div class="ct-item"><div class="icon"><svg><use href="#i-pin"/></svg></div><div><small>Visit</small><p>363 N Sam Houston Pkwy E, Ste 1440B<br>Houston, TX 77060</p></div></div>
+      <div class="ct-item"><div class="icon"><svg><use href="#i-phone"/></svg></div><div><small>Call or Text</small><a href="tel:+17135511797">713-551-1797</a></div></div>
+      <div class="ct-item"><div class="icon"><svg><use href="#i-mail"/></svg></div><div><small>Email</small><a href="mailto:info@insiteintegrativewellness.com">info@insiteintegrativewellness.com</a></div></div>
+      <div class="ct-item"><div class="icon"><svg><use href="#i-compass"/></svg></div><div><small>Not sure what to choose?</small><a href="/lab/compass">Take the Wellness Compass &rarr;</a></div></div>
+    </div>
+
+    <!-- Form posts to /api/appointment on the same origin. Backend writes the submission to
+         Airtable and emails the office via Web3Forms. SMS disclosure and consent checkbox are
+         required for TCR registration — do not remove. -->
+    <form class="form reveal" data-d="1" id="apptForm" novalidate>
+      <div class="field-row">
+        <div class="field"><label for="f-name">Full name</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
+        <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label for="f-phone">Mobile phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" placeholder="(713) 555-0123"></div>
+        <div class="field"><label for="f-service">Service of interest</label>
+          <select id="f-service" name="service">
+            <option>Massage Therapy</option>
+            <option>Reiki &amp; Healing Touch</option>
+            <option>Yoga</option>
+            <option>Culinary Medicine</option>
+            <option>Reflexology</option>
+            <option>Aromatherapy</option>
+            <option>Herbal Medicine &amp; Supplements</option>
+            <option>Anesthesia Services</option>
+            <option>Not sure yet — help me choose</option>
+          </select>
+        </div>
+      </div>
+      <div class="field"><label for="f-msg">How can we help?</label><textarea id="f-msg" name="message"></textarea></div>
+
+      <p class="sms-disclosure">By entering your phone number, you are agreeing to receive text messages from Insite Integrative Wellness. Message &amp; data rates may apply. Message frequency may vary. Reply HELP for more information. You can reply STOP or UNSUBSCRIBE to opt-out. See our <a href="/privacy">Privacy Policy</a> for additional details.</p>
+
+      <label class="consent">
+        <input type="checkbox" id="f-consent" name="sms_consent" value="yes">
+        <span>I agree to receive text messages from Insite Integrative Wellness at the mobile number provided. Consent is not a condition of purchase.</span>
+      </label>
+
+      <button class="btn btn-gold" type="submit" id="apptSubmit">Send appointment request</button>
+      <p class="form-note" id="apptStatus">Submitting this form sends your details to our office. We respect your privacy &mdash; see our <a href="/privacy">Privacy Policy</a>.</p>
+    </form>
+  </div>
+</section>
+</main>
+<!-- @footer -->
+<script>
+// Prefill from Wellness Lab tools: /contact?service=...&from=lab (note arrives via sessionStorage)
+(function(){
+  var q=new URLSearchParams(location.search),s=q.get('service'),n=null,sel=document.getElementById('f-service');
+  if(q.get('from')==='lab')try{n=sessionStorage.getItem('insite-note');sessionStorage.removeItem('insite-note')}catch(_){}
+  if(s)[].forEach.call(sel.options,function(o){if(o.text===s)sel.value=o.text});
+  if(n)document.getElementById('f-msg').value=n.slice(0,3000);
+})();
+// Appointment form: POST to backend, which emails + stores in Airtable.
+document.getElementById('apptForm').addEventListener('submit',async function(e){
+  e.preventDefault();
+  var form=e.target;
+  var statusEl=document.getElementById('apptStatus');
+  var btn=document.getElementById('apptSubmit');
+  var name=document.getElementById('f-name').value.trim();
+  var email=document.getElementById('f-email').value.trim();
+  var phone=document.getElementById('f-phone').value.trim();
+  var service=document.getElementById('f-service').value;
+  var msg=document.getElementById('f-msg').value.trim();
+  var consent=document.getElementById('f-consent').checked;
+  var say=function(t,c){statusEl.textContent=t;statusEl.className='form-note '+(c||'');};
+  if(!name||!email){say('Please provide your name and email so we can reach you.','err');return;}
+  if(phone&&!consent){say('If you would like us to text you, please check the consent box. Otherwise, you may leave the phone field blank.','err');return;}
+  btn.disabled=true;btn.textContent='Sending…';
+  say('Sending your request…');
+  try{
+    var res=await fetch('/api/appointment',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({name:name,email:email,phone:phone,service:service,message:msg,sms_consent:consent})
+    });
+    var data=await res.json().catch(function(){return {};});
+    if(!res.ok||data.ok===false){throw new Error(data.error||('Request failed ('+res.status+')'));}
+    form.reset();
+    say('Thank you, '+name+'. Your request has been received — we will reach out shortly to schedule your first visit.','ok');
+  }catch(err){
+    say('Sorry — we could not submit your request. Please call 713-551-1797 or email info@insiteintegrativewellness.com directly. ('+err.message+')','err');
+  }
+  btn.disabled=false;btn.textContent='Send appointment request';
+});
+</script>
+</body>
+</html>

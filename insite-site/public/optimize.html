@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- @head -->
+<title>OPTIMIZE² Framework | Insite Integrative Wellness</title>
+<meta name="description" content="OPTIMIZE² — Coach × Client = Outcome. A dual-performance framework pairing practitioner-guided strategy with client-owned execution. Take the interactive self-check.">
+<style>
+.modes{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:4px;margin:30px 0 26px;background:var(--glass)}
+.modes button{border:0;background:none;color:var(--text);padding:10px 22px;border-radius:999px;font-family:var(--body);letter-spacing:.14em;text-transform:uppercase;font-size:.78rem;cursor:pointer}
+.modes button[aria-pressed="true"]{background:var(--gold-grad);color:#1c1406}
+.ledger{list-style:none;display:grid;gap:12px}
+.ledger li{display:grid;grid-template-columns:1fr 84px 1fr;align-items:center;border:1px solid var(--line-soft);border-radius:16px;background:var(--glass);overflow:hidden;transition:transform .4s var(--ease),border-color .3s,box-shadow .3s}
+.ledger li:hover{transform:translateX(4px);border-color:var(--line);box-shadow:0 0 30px -12px rgba(226,178,90,.5)}
+.ledger .side{padding:18px 24px;transition:opacity .5s,filter .5s}
+.ledger .side b{display:block;font-family:var(--disp);font-weight:500;font-size:1.15rem}
+.ledger .side span{color:var(--muted);font-size:.95rem}
+.ledger .co{text-align:right}.ledger .co b{color:#8de3d6}.ledger .cl b{color:var(--gold-hi)}
+.ledger .letter{width:58px;justify-self:center;cursor:default}
+[data-mode="coach"] .cl,[data-mode="client"] .co{opacity:.18;filter:blur(1.5px)}
+.outcome{margin-top:34px;padding:34px 38px;border-radius:22px;border:1px solid var(--line);background:linear-gradient(120deg,rgba(23,87,79,.6),rgba(168,112,31,.35));display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+.outcome .w{font-family:var(--disp);font-size:2rem;letter-spacing:.16em}
+.outcome p{flex:1;min-width:260px;color:#e4e6dc}
+.check{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.sl{display:grid;grid-template-columns:130px 1fr 28px;gap:14px;align-items:center;margin-bottom:14px}
+.sl b{font-family:var(--disp);font-weight:500;color:var(--cream)}
+.sl output{font-family:var(--disp);color:var(--gold);text-align:right}
+#radar{width:100%;max-width:460px;margin:0 auto;overflow:visible}
+.focus{margin-top:24px}
+@media(max-width:920px){.check{grid-template-columns:1fr}}
+@media(max-width:620px){.ledger li{grid-template-columns:1fr 50px 1fr}.ledger .letter{width:40px}.ledger .side{padding:12px}.ledger .side b{font-size:.95rem}.ledger .side span{font-size:.8rem}.sl{grid-template-columns:100px 1fr 24px}}
+</style>
+</head>
+<body>
+<!-- @header -->
+<main id="main">
+<section class="page-hero">
+  <div class="bg"><video autoplay muted loop playsinline poster="/img/page-optimize.webp"><source src="/video/optimize.mp4" type="video/mp4"></video></div>
+  <div class="wrap">
+    <p class="crumbs"><a href="/">Home</a> / <span>OPTIMIZE&sup2;</span></p>
+    <span class="eyebrow">The Proprietary Framework</span>
+    <h1><span class="gold">OPTIMIZE&sup2;</span></h1>
+    <p class="equation" style="justify-content:flex-start;margin-top:10px;font-size:clamp(1.6rem,3.4vw,2.6rem)"><span>Coach</span><span class="op">&times;</span><span>Client</span><span class="op">=</span><span class="gold">Outcome</span></p>
+    <p class="lede" style="margin-top:14px">Two aligned systems. One optimized life. The coach drives assessment and intervention. The client drives ownership and execution &mdash; for optimum performance under any life condition.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="split" style="align-items:start">
+      <div class="card reveal"><div class="icon"><svg><use href="#i-plan"/></svg></div><h3>Practitioner-Guided Strategy</h3><p><b style="color:#8de3d6">Coach OPTIMIZE &mdash; Observe to Expand.</b> Dr. Thompson reads the whole picture: your condition, your patterns, and the highest-leverage moves for your goals.</p></div>
+      <div class="card reveal" data-d="1"><div class="icon"><svg><use href="#i-wind"/></svg></div><h3>Client-Owned Execution</h3><p><b style="color:var(--gold-hi)">Client OPTIMIZE &mdash; Own to Elevate.</b> You own the daily practice: prioritizing, training new habits, and iterating from what you feel and measure.</p></div>
+    </div>
+
+    <div class="center"><div class="modes" role="group" aria-label="View">
+      <button aria-pressed="false" data-m="coach">Coach</button><button aria-pressed="true" data-m="both">Both</button><button aria-pressed="false" data-m="client">Client</button>
+    </div></div>
+    <ul class="ledger" id="ledger" data-mode="both"></ul>
+    <div class="outcome reveal"><span class="w gold">OPTIMIZED</span><p>Perform, adapt, and elevate under changing life conditions through aligned strategy and execution. OPTIMIZE&sup2; = coach-guided strategy &times; client-owned execution.</p></div>
+  </div>
+</section>
+
+<section style="background:radial-gradient(60% 70% at 70% 50%,rgba(23,87,79,.3),transparent 70%)">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Interactive</span>
+      <h2>Your OPTIMIZE&sup2; <span class="italic gold">self-check.</span></h2>
+      <p class="lede">Rate how strong each client step feels in your life right now (1 = just starting, 5 = solid). Your map updates live &mdash; and you can bring it to your first session.</p>
+    </div>
+    <div class="check">
+      <div id="sliders" class="reveal"></div>
+      <div class="reveal" data-d="1">
+        <svg id="radar" viewBox="-170 -170 340 340" role="img" aria-label="Radar chart of your self-check"></svg>
+        <div class="focus card" id="focus" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<!-- @footer -->
+<script src="/js/optimize-data.js"></script>
+<script>
+(function(){
+  var led=document.getElementById('ledger');
+  led.innerHTML=OPT.map(function(o){return '<li class="reveal"><div class="side co"><b>'+o.coach[0]+'</b><span>'+o.coach[1]+'</span></div><span class="letter">'+o.l+'</span><div class="side cl"><b>'+o.client[0]+'</b><span>'+o.client[1]+'</span></div></li>'}).join('');
+  document.querySelectorAll('.modes button').forEach(function(b){b.onclick=function(){
+    document.querySelectorAll('.modes button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});led.dataset.mode=b.dataset.m;}});
+
+  // self-check
+  var KEY='insite-optimize-check', vals;
+  try{vals=JSON.parse(localStorage.getItem(KEY))}catch(e){}
+  if(!Array.isArray(vals)||vals.length!==8)vals=OPT.map(function(){return 3});
+  var S=document.getElementById('sliders'),R=document.getElementById('radar'),F=document.getElementById('focus');
+  S.innerHTML=OPT.map(function(o,i){return '<div class="sl"><label for="s'+i+'" style="margin:0"><b>'+o.client[0]+'</b></label><input id="s'+i+'" type="range" min="1" max="5" value="'+vals[i]+'"><output>'+vals[i]+'</output></div>'}).join('');
+  S.addEventListener('input',function(e){var i=+e.target.id.slice(1);vals[i]=+e.target.value;e.target.nextElementSibling.value=vals[i];draw();try{localStorage.setItem(KEY,JSON.stringify(vals))}catch(_){}});
+  var pt=function(i,r){var a=-Math.PI/2+i*Math.PI/4;return [Math.cos(a)*r,Math.sin(a)*r]};
+  function draw(){
+    var g='';
+    for(var k=1;k<=5;k++)g+='<polygon points="'+OPT.map(function(_,i){return pt(i,k*26).join(',')}).join(' ')+'" fill="none" stroke="rgba(236,228,210,.1)"/>';
+    OPT.forEach(function(o,i){var p=pt(i,130),q=pt(i,152);g+='<line x1="0" y1="0" x2="'+p[0]+'" y2="'+p[1]+'" stroke="rgba(236,228,210,.1)"/><text x="'+q[0]+'" y="'+(q[1]+4)+'" text-anchor="middle" fill="#a8b9b1" font-size="11" font-family="Jost" letter-spacing="1.5">'+o.client[0].toUpperCase()+'</text>'});
+    g+='<defs><linearGradient id="rf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2fb3a5" stop-opacity=".55"/><stop offset="1" stop-color="#e2b25a" stop-opacity=".55"/></linearGradient></defs>';
+    g+='<polygon points="'+vals.map(function(v,i){return pt(i,v*26).join(',')}).join(' ')+'" fill="url(#rf)" stroke="#f8dc98" stroke-width="1.5" style="transition:all .4s"/>';
+    vals.forEach(function(v,i){var p=pt(i,v*26);g+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="4" fill="#f8dc98"/>'});
+    R.innerHTML=g;
+    var order=vals.map(function(v,i){return i}).sort(function(a,b){return vals[a]-vals[b]}).slice(0,2);
+    var note='OPTIMIZE² self-check — '+OPT.map(function(o,i){return o.client[0]+' '+vals[i]+'/5'}).join(', ');
+    F.innerHTML='<h3>Your focus areas</h3><p>'+order.map(function(i){return '<b style="color:var(--gold-hi)">'+OPT[i].client[0]+'</b> '+OPT[i].client[1]}).join(' &nbsp;&middot;&nbsp; ')+'</p><p style="margin-top:8px">Paired coach moves: '+order.map(function(i){return OPT[i].coach[0]+' '+OPT[i].coach[1]}).join('; ')+'.</p><a class="btn btn-gold btn-sm" style="margin-top:18px" href="/contact?service=Not%20sure%20yet%20%E2%80%94%20help%20me%20choose&from=lab">Bring this to a session</a>';
+    F.querySelector('a').dataset.note=note;
+  }
+  draw();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- @head -->
+<title>Culinary Medicine Kitchen — Healing Recipes | Insite Integrative Wellness</title>
+<meta name="description" content="Culinary medicine recipes from Insite Integrative Wellness: anti-inflammatory, vegan, low-carb and low-FODMAP dishes like turmeric golden milk, lentil soup and ginger salmon.">
+<style>
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:34px}
+.recipe{padding:0;cursor:pointer;display:flex;flex-direction:column;text-align:left;font:inherit;color:inherit;width:100%}
+.recipe .ph{aspect-ratio:4/3;overflow:hidden}
+.recipe .ph img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.recipe:hover .ph img{transform:scale(1.07)}
+.recipe .bd{padding:22px 24px 26px}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.tag{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--gold)}
+.recipe[hidden]{display:none}
+dialog{margin:auto;max-width:860px;width:calc(100% - 32px);max-height:90vh;border:1px solid var(--line);border-radius:24px;background:var(--bg-2);color:var(--text);padding:0;box-shadow:0 40px 100px rgba(0,0,0,.8)}
+dialog::backdrop{background:rgba(2,8,9,.75);backdrop-filter:blur(6px)}
+dialog .hd{aspect-ratio:21/9;overflow:hidden}
+dialog .hd img{width:100%;height:100%;object-fit:cover}
+dialog .in{padding:30px 34px 36px;display:grid;grid-template-columns:.9fr 1.1fr;gap:34px}
+dialog h2{grid-column:1/-1;margin:0}
+dialog ul,dialog ol{padding-left:20px;color:var(--muted)}
+dialog li{margin-bottom:6px}
+dialog .x{position:absolute;top:14px;right:14px;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:rgba(6,23,26,.7);color:var(--cream);font-size:1.3rem;cursor:pointer}
+dialog .why{grid-column:1/-1}
+@media(max-width:700px){dialog .in{grid-template-columns:1fr;padding:24px}}
+@media print{dialog{position:static;max-height:none;box-shadow:none;border:0}dialog::backdrop{display:none}}
+</style>
+</head>
+<body>
+<!-- @header -->
+<main id="main">
+<section class="page-hero" style="min-height:58vh">
+  <div class="bg"><img src="/img/svc-culinary.webp" alt=""></div>
+  <div class="wrap">
+    <p class="crumbs"><a href="/">Home</a> / <a href="/lab/">Wellness Lab</a> / <span>Kitchen</span></p>
+    <span class="eyebrow">Culinary Medicine Kitchen</span>
+    <h1>Food is information. <span class="italic gold">Cook with intention.</span></h1>
+  </div>
+</section>
+<section style="padding-top:50px">
+  <div class="wrap">
+    <div class="filters" id="filters" role="group" aria-label="Filter recipes"></div>
+    <div class="grid g3" id="grid"></div>
+    <p class="notice" style="margin-top:40px">Recipes are general wellness suggestions. If you manage a medical condition, food allergy, or take medications such as blood thinners, talk with your clinician about the right plan for you.</p>
+    <div class="ctas"><a class="btn btn-gold" href="/contact?service=Culinary%20Medicine">Book a culinary medicine session</a></div>
+  </div>
+</section>
+<dialog id="dlg"></dialog>
+</main>
+<!-- @footer -->
+<script>
+(function(){
+  var R=[
+    {id:'golden-milk',n:'Golden Turmeric Milk',img:'r-golden-milk',t:'10 min',tags:['Anti-inflammatory','Vegan','Low-FODMAP'],
+     why:'Turmeric is paired with black pepper and a little fat, which helps the body absorb curcumin. Ginger and cinnamon add warmth.',
+     ing:['1½ cups unsweetened almond milk','1 tsp ground turmeric','½ tsp ground ginger (or 3 slices fresh)','¼ tsp cinnamon','Pinch black pepper','1 tsp coconut oil','1–2 tsp maple syrup'],
+     st:['Whisk everything except the maple syrup in a small pot.','Warm over medium-low heat 5 minutes — don’t boil.','Strain if using fresh ginger, sweeten to taste, and froth if you like.']},
+    {id:'lentil-soup',n:'Mediterranean Lentil & Greens Soup',img:'r-lentil-soup',t:'40 min',tags:['Anti-inflammatory','Vegan'],
+     why:'Lentils bring fiber and plant protein; leafy greens, tomatoes and olive oil deliver a Mediterranean-style pattern linked to heart health.',
+     ing:['2 tbsp extra-virgin olive oil','1 onion, 2 carrots, 2 celery stalks, diced','3 garlic cloves, minced','1 cup brown or green lentils, rinsed','1 can (14 oz) diced tomatoes','6 cups low-sodium vegetable broth','1 tsp cumin, ½ tsp smoked paprika','3 cups chopped kale','Juice of ½ lemon'],
+     st:['Sauté onion, carrot and celery in olive oil 6 minutes; add garlic and spices for 1 minute.','Add lentils, tomatoes and broth. Simmer covered 25 minutes until tender.','Stir in kale for 3 minutes, finish with lemon, salt and pepper.']},
+    {id:'ginger-salmon',n:'Ginger Salmon with Bok Choy',img:'r-ginger-salmon',t:'25 min',tags:['Low-FODMAP','Anti-inflammatory'],
+     why:'Salmon provides omega-3 fats. Using garlic-infused oil and only scallion greens keeps the flavor while staying low-FODMAP.',
+     ing:['2 salmon fillets (5 oz each)','1 tbsp grated fresh ginger','2 tbsp tamari or soy sauce','1 tsp maple syrup','1 tbsp garlic-infused oil','2 heads baby bok choy, halved','Scallion greens, sesame seeds','Cooked jasmine rice'],
+     st:['Mix ginger, tamari and maple; brush over salmon and rest 10 minutes.','Roast salmon at 400°F for 12–14 minutes.','Sear bok choy in garlic-infused oil 3–4 minutes; serve over rice topped with scallion greens and sesame.']},
+    {id:'cauli-bowl',n:'Cauliflower Rice Power Bowl',img:'r-cauli-bowl',t:'20 min',tags:['Low-carb','Vegan'],
+     why:'Swapping grains for cauliflower rice lowers the carbohydrate load while broccoli, edamame and tahini keep the bowl satisfying.',
+     ing:['3 cups riced cauliflower','2 cups broccoli florets','1 cup shelled edamame','1 avocado, sliced','½ cucumber, diced','Tahini dressing: 3 tbsp tahini, juice of 1 lemon, water to thin, pinch salt'],
+     st:['Roast broccoli at 425°F with olive oil 15 minutes.','Sauté cauliflower rice 5 minutes until just tender; warm the edamame.','Build bowls and drizzle with tahini dressing.']},
+    {id:'chia-pudding',n:'Berry Chia Overnight Pudding',img:'r-chia-pudding',t:'5 min + overnight',tags:['Vegan','Low-FODMAP','Anti-inflammatory'],
+     why:'Chia seeds offer fiber and plant omega-3s; blueberries and raspberries add color and antioxidants.',
+     ing:['3 tbsp chia seeds','¾ cup unsweetened almond milk','1 tsp maple syrup','¼ tsp vanilla','½ cup blueberries and raspberries','1 tsp hemp seeds'],
+     st:['Stir chia, milk, maple and vanilla in a jar; rest 5 minutes and stir again.','Refrigerate overnight.','Layer with berries and top with hemp seeds.']},
+    {id:'zoodles',n:'Zucchini Noodles with Walnut Pesto',img:'r-zoodles',t:'15 min',tags:['Low-carb','Vegetarian'],
+     why:'Zucchini noodles keep things light, while walnuts and olive oil bring healthy fats and a satisfying richness.',
+     ing:['3 medium zucchini, spiralized','2 cups fresh basil','⅓ cup walnuts','1 garlic clove','¼ cup grated parmesan','⅓ cup extra-virgin olive oil','1 cup cherry tomatoes, halved'],
+     st:['Blend basil, walnuts, garlic, parmesan and olive oil into a pesto.','Sauté zucchini noodles 2 minutes — keep them crisp.','Toss with pesto and tomatoes; season and serve.']}
+  ];
+  var tags=['All'];R.forEach(function(r){r.tags.forEach(function(t){if(tags.indexOf(t)<0)tags.push(t)})});
+  var F=document.getElementById('filters'),G=document.getElementById('grid'),D=document.getElementById('dlg');
+  F.innerHTML=tags.map(function(t,i){return '<button class="chip'+(i?'':' on')+'" data-t="'+t+'">'+t+'</button>'}).join('');
+  G.innerHTML=R.map(function(r){return '<button class="card recipe reveal" data-id="'+r.id+'" data-tags="'+r.tags.join('|')+'"><div class="ph"><img src="/img/'+r.img+'.webp" alt="" loading="lazy"></div><div class="bd"><div class="tags">'+r.tags.map(function(t){return '<span class="tag">'+t+'</span>'}).join('')+'</div><h3>'+r.n+'</h3><p>'+r.t+'</p></div></button>'}).join('');
+  F.onclick=function(e){var c=e.target.closest('.chip');if(!c)return;F.querySelectorAll('.chip').forEach(function(x){x.classList.toggle('on',x===c)});
+    G.querySelectorAll('.recipe').forEach(function(r){r.hidden=c.dataset.t!=='All'&&r.dataset.tags.split('|').indexOf(c.dataset.t)<0})};
+  function open(id){var r=R.filter(function(x){return x.id===id})[0];if(!r)return;
+    D.innerHTML='<button class="x" aria-label="Close">&times;</button><div class="hd"><img src="/img/'+r.img+'.webp" alt=""></div><div class="in"><div style="grid-column:1/-1"><div class="tags">'+r.tags.map(function(t){return '<span class="tag">'+t+'</span>'}).join('')+'</div><h2>'+r.n+'</h2><p style="color:var(--gold)">'+r.t+'</p></div><div><p class="label">Ingredients</p><ul>'+r.ing.map(function(i){return '<li>'+i+'</li>'}).join('')+'</ul></div><div><p class="label">Method</p><ol>'+r.st.map(function(i){return '<li>'+i+'</li>'}).join('')+'</ol></div><p class="notice why"><strong>Why it works:</strong> '+r.why+'</p><div class="why"><button class="btn btn-ghost btn-sm" onclick="print()">Print recipe</button></div></div>';
+    D.querySelector('.x').onclick=function(){D.close()};D.showModal();history.replaceState(null,'','#'+id);}
+  G.onclick=function(e){var c=e.target.closest('.recipe');c&&open(c.dataset.id)};
+  D.addEventListener('close',function(){history.replaceState(null,'',location.pathname)});
+  D.addEventListener('click',function(e){if(e.target===D)D.close()});
+  if(location.hash)open(location.hash.slice(1));
+})();
+</script>
+</body>
+</html>

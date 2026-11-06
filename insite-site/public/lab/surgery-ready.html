@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- @head -->
+<title>Surgery-Ready Supplement Checker | Insite Integrative Wellness</title>
+<meta name="description" content="Preparing for surgery? Build a printable list of the herbs and supplements you take, with what to discuss with your anesthesia provider before your procedure.">
+<style>
+.sr{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start}
+.search{position:relative}
+.search input{padding-left:48px}
+.search svg{position:absolute;left:16px;top:50%;translate:0 -50%;width:20px;height:20px;color:var(--gold)}
+.sugg{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.item{display:grid;grid-template-columns:1fr auto;gap:4px 14px;padding:16px 0;border-bottom:1px solid var(--line-soft)}
+.item b{font-family:var(--disp);font-weight:500;color:var(--cream);font-size:1.08rem}
+.item p{grid-column:1/2;color:var(--muted);font-size:.92rem}
+.item button{grid-row:1/3;grid-column:2;align-self:center;background:none;border:1px solid var(--line-soft);color:var(--muted);width:34px;height:34px;border-radius:50%;cursor:pointer}
+.item button:hover{border-color:var(--gold);color:var(--gold)}
+.flag{display:inline-block;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;padding:2px 8px;border-radius:999px;margin-left:8px;vertical-align:middle;border:1px solid}
+.flag.bleed{color:#f2a38a;border-color:rgba(242,163,138,.5)}.flag.sed{color:#9fc7ff;border-color:rgba(159,199,255,.5)}.flag.bp{color:#f8dc98;border-color:rgba(248,220,152,.5)}.flag.drug{color:#8de3d6;border-color:rgba(141,227,214,.5)}
+.empty{color:var(--muted);font-style:italic;padding:24px 0}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+@media(max-width:920px){.sr{grid-template-columns:1fr}}
+@media print{.sr>div:first-child,.tools,.no-print{display:none!important}.sr{display:block}.card{background:#fff;color:#000;box-shadow:none;border:0}.item b,.item p{color:#000}}
+</style>
+</head>
+<body>
+<!-- @header -->
+<main id="main">
+<section style="padding-top:150px">
+  <div class="wrap">
+    <p class="crumbs"><a href="/">Home</a> / <a href="/lab/">Wellness Lab</a> / <span>Surgery-Ready</span></p>
+    <div class="sr">
+      <div>
+        <span class="eyebrow">Surgery-Ready Checker</span>
+        <h1 style="font-size:clamp(2rem,4.4vw,3.4rem)">Natural isn&rsquo;t always <span class="italic gold">neutral.</span></h1>
+        <p class="lede" style="margin-top:14px">Some herbs and supplements can affect bleeding, blood pressure, blood sugar, or how anesthesia medications work. Add everything you take &mdash; then bring your list to your pre-surgery appointment.</p>
+        <div class="search" style="margin-top:28px">
+          <svg><use href="#i-compass"/></svg>
+          <label for="q" class="sr-only">Search supplements</label>
+          <input id="q" list="sup" placeholder="Type a supplement, e.g. fish oil" autocomplete="off">
+          <datalist id="sup"></datalist>
+        </div>
+        <div class="sugg" id="sugg"></div>
+        <p class="notice" style="margin-top:28px"><strong>Important:</strong> Many anesthesia professionals suggest pausing herbal supplements about 1&ndash;2 weeks before elective surgery &mdash; but only your surgeon and anesthesia provider can tell you what&rsquo;s right for you. <strong>Never stop a prescribed medication on your own.</strong></p>
+      </div>
+      <div class="card" style="padding:32px">
+        <span class="eyebrow">My pre-surgery list</span>
+        <h2 style="font-size:1.8rem;margin-top:8px">Discuss with your <span class="italic gold">anesthesia provider</span></h2>
+        <div id="list" aria-live="polite"></div>
+        <div class="tools">
+          <button class="btn btn-gold btn-sm" onclick="print()">Print list</button>
+          <button class="btn btn-ghost btn-sm" id="copy">Copy</button>
+          <a class="btn btn-ghost btn-sm" id="send" href="/contact?service=Anesthesia%20Services&from=lab">Send to Dr. Thompson</a>
+          <button class="btn btn-ghost btn-sm" id="clear">Clear</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<!-- @footer -->
+<script>
+(function(){
+  // [name, flags, note]  flags: bleed | sed | bp | drug
+  var D=[
+    ['Garlic (supplement)','bleed','May increase bleeding risk.'],
+    ['Ginkgo biloba','bleed','May increase bleeding risk.'],
+    ['Ginseng','bleed bp','May increase bleeding risk and lower blood sugar.'],
+    ["St. John's wort",'drug','Interacts with many medications, including some used around surgery.'],
+    ['Kava','sed','May intensify sedation from anesthesia medications.'],
+    ['Valerian','sed','May intensify sedation; after long use, taper only with guidance.'],
+    ['Echinacea','drug','May cause allergic reactions and affect immune and liver function.'],
+    ['Ephedra (ma huang)','bp','Can raise heart rate and blood pressure.'],
+    ['Fish oil / omega-3','bleed','High doses may affect bleeding.'],
+    ['Vitamin E','bleed','High doses may affect bleeding.'],
+    ['Turmeric / curcumin','bleed','May affect bleeding and interact with blood thinners.'],
+    ['Ginger (supplement)','bleed','May affect bleeding at supplement doses.'],
+    ['Feverfew','bleed','May affect bleeding.'],
+    ['Saw palmetto','bleed','May affect bleeding.'],
+    ['Dong quai','bleed','May affect bleeding and interact with blood thinners.'],
+    ['Licorice root','bp','May raise blood pressure and lower potassium.'],
+    ['Green tea extract','bp','Contains stimulants; may affect blood pressure.'],
+    ['Melatonin','sed','May add to sedation.'],
+    ['CBD / cannabis','sed drug','Can change anesthesia needs and interact with medications — always disclose.'],
+    ['Kratom','sed drug','Acts on opioid receptors; important to disclose.'],
+    ['Yohimbe','bp','Can raise heart rate and blood pressure.'],
+    ['Goldenseal','drug','May interact with many medications.'],
+    ['Glucosamine / chondroitin','bleed','May increase bleeding with blood thinners.'],
+    ['Magnesium','drug','Generally well tolerated; disclose dose so your team can plan.'],
+    ['Multivitamin','drug','Disclose brand and dose so your team has the full picture.']
+  ];
+  var FL={bleed:'Bleeding',sed:'Sedation',bp:'Heart / BP',drug:'Interactions'};
+  var KEY='insite-surgery-list',mine=[];
+  try{mine=JSON.parse(localStorage.getItem(KEY))||[]}catch(e){}
+  var $=function(id){return document.getElementById(id)},esc=function(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+  $('sup').innerHTML=D.map(function(d){return '<option value="'+esc(d[0])+'">'}).join('');
+  $('sugg').innerHTML=['Fish oil / omega-3','Turmeric / curcumin','Ginkgo biloba','Melatonin','CBD / cannabis',"St. John's wort",'Garlic (supplement)','Vitamin E'].map(function(n){return '<button class="chip" data-n="'+esc(n)+'">+ '+esc(n)+'</button>'}).join('');
+  function find(n){n=n.toLowerCase();return D.filter(function(d){return d[0].toLowerCase()===n})[0]||D.filter(function(d){return d[0].toLowerCase().indexOf(n)===0})[0]}
+  function add(n){n=n.trim().slice(0,80);if(!n)return;var d=find(n),name=d?d[0]:n;
+    if(mine.indexOf(name)<0)mine.push(name);save();}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(mine))}catch(e){}render();}
+  function text(){return 'My supplements to discuss before surgery:\n'+mine.map(function(n){var d=find(n);return '- '+n+(d&&d[0]===n?' — '+d[2]:'')}).join('\n')}
+  function render(){
+    $('list').innerHTML=mine.length?mine.map(function(n,i){var d=find(n),ok=d&&d[0]===n;
+      return '<div class="item"><b>'+esc(n)+(ok?d[1].split(' ').map(function(f){return '<span class="flag '+f+'">'+FL[f]+'</span>'}).join(''):'')+'</b><p>'+(ok?d[2]:'Not in our list — still bring it up with your care team.')+'</p><button aria-label="Remove '+esc(n)+'" data-i="'+i+'">&times;</button></div>'}).join(''):'<p class="empty">Nothing added yet. Search or tap a suggestion.</p>';
+    $('send').dataset.note=mine.length?text():'';
+  }
+  $('q').addEventListener('change',function(){add(this.value);this.value=''});
+  $('q').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();add(this.value);this.value=''}});
+  $('sugg').onclick=function(e){var c=e.target.closest('.chip');c&&add(c.dataset.n)};
+  $('list').onclick=function(e){var b=e.target.closest('button');if(b){mine.splice(+b.dataset.i,1);save()}};
+  $('clear').onclick=function(){mine=[];save()};
+  $('copy').onclick=function(){var b=this;navigator.clipboard&&navigator.clipboard.writeText(text()).then(function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},1500)})};
+  render();
+})();
+</script>
+</body>
+</html>

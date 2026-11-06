@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- @head -->
+<title>Breath Studio — Guided Breathing | Insite Integrative Wellness</title>
+<meta name="description" content="Guided breathing exercises in your browser: box breathing, 4-7-8, coherent breathing and the physiological sigh, with a calming animated orb.">
+<style>
+.studio{display:grid;grid-template-columns:1fr 1.1fr;gap:60px;align-items:center}
+.patterns{display:grid;gap:12px}
+.pat{text-align:left;width:100%;cursor:pointer;font:inherit;color:inherit;padding:20px 22px}
+.pat[aria-pressed="true"]{border-color:var(--gold);box-shadow:0 0 30px -10px rgba(226,178,90,.6)}
+.pat h3{font-size:1.05rem;display:flex;justify-content:space-between;gap:10px}
+.pat h3 small{font-family:var(--body);color:var(--gold);letter-spacing:.1em;font-size:.8rem}
+.pat p{font-size:.9rem}
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:22px}
+.stage{position:relative}
+.orb-stage .count{position:absolute;font-family:var(--disp);font-size:2.4rem;color:#2a1a04;z-index:2}
+.prog{position:absolute;inset:-4%;transform:rotate(-90deg)}
+.prog circle{fill:none;stroke-width:2}
+.stats{display:flex;justify-content:center;gap:30px;margin-top:70px;color:var(--muted);font-size:.85rem;letter-spacing:.14em;text-transform:uppercase}
+.stats b{display:block;font-family:var(--disp);color:var(--cream);font-size:1.4rem;letter-spacing:0}
+@media(max-width:920px){.studio{grid-template-columns:1fr}.stage{order:-1}}
+</style>
+</head>
+<body>
+<!-- @header -->
+<main id="main">
+<section style="padding-top:150px">
+  <div class="wrap">
+    <p class="crumbs"><a href="/">Home</a> / <a href="/lab/">Wellness Lab</a> / <span>Breath Studio</span></p>
+    <div class="studio">
+      <div>
+        <span class="eyebrow">Breath Studio</span>
+        <h1 style="font-size:clamp(2rem,4.4vw,3.4rem)">Breathe with <span class="italic gold">intention.</span></h1>
+        <p class="lede" style="margin:14px 0 26px">Choose a pattern, press begin, and let the orb lead. Breathe through your nose if you can, shoulders soft.</p>
+        <div class="patterns" id="patterns"></div>
+        <div class="controls">
+          <span class="label" style="margin:0">Length</span>
+          <button class="chip" data-min="1">1 min</button><button class="chip on" data-min="3">3 min</button><button class="chip" data-min="5">5 min</button>
+          <label class="chip" style="margin:0;letter-spacing:0;text-transform:none;font-weight:300;color:var(--text)"><input type="checkbox" id="sound" style="width:auto;margin-right:6px;accent-color:var(--gold)"> Soft tones</label>
+        </div>
+        <div class="ctas"><button class="btn btn-gold" id="go">Begin</button></div>
+        <p class="notice" style="margin-top:26px">Stop if you feel dizzy or uncomfortable and return to natural breathing. If you are pregnant or have a heart or lung condition, skip long breath-holds and check with your clinician.</p>
+      </div>
+      <div class="stage">
+        <div class="orb-stage" style="width:min(460px,86vw)">
+          <svg class="prog" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="48" stroke="rgba(236,228,210,.08)"/><circle id="ring" cx="50" cy="50" r="48" stroke="url(#pg)" stroke-dasharray="301.6" stroke-dashoffset="301.6" stroke-linecap="round"/><defs><linearGradient id="pg"><stop offset="0" stop-color="#2fb3a5"/><stop offset="1" stop-color="#f8dc98"/></linearGradient></defs></svg>
+          <span class="orb-ring"></span><span class="orb-ring"></span>
+          <span class="orb" id="orb"></span><span class="count" id="count" aria-hidden="true"></span>
+          <span class="label" id="phase" aria-live="polite">Ready when you are</span>
+        </div>
+        <div class="stats"><div><b id="breaths">0</b>Breaths</div><div><b id="left">3:00</b>Remaining</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<!-- @footer -->
+<script>
+(function(){
+  // phase: [label, seconds, orb scale]
+  var P={
+    box:{n:'Box Breathing',t:'4 · 4 · 4 · 4',d:'Steadying and focusing. A favorite for pressure moments.',s:[['Breathe in',4,1.15],['Hold',4,1.15],['Breathe out',4,.62],['Hold',4,.62]]},
+    r478:{n:'4-7-8 Relaxing Breath',t:'4 · 7 · 8',d:'A long exhale to help you unwind before sleep.',s:[['Breathe in',4,1.15],['Hold',7,1.15],['Breathe out',8,.62]]},
+    coh:{n:'Coherent Breathing',t:'5.5 · 5.5',d:'About 5.5 breaths per minute — smooth, even and balancing.',s:[['Breathe in',5.5,1.15],['Breathe out',5.5,.62]]},
+    sigh:{n:'Physiological Sigh',t:'2 · 1 · 6',d:'A double inhale and long exhale to release tension quickly.',s:[['Breathe in',2,1],['Sip in a little more',1,1.18],['Long breath out',6,.62]]}
+  };
+  var key='box',mins=3,running=false,timer,end,breaths=0,ac;
+  var $=function(id){return document.getElementById(id)},orb=$('orb');
+  $('patterns').innerHTML=Object.keys(P).map(function(k){var p=P[k];return '<button class="card pat" data-k="'+k+'" aria-pressed="'+(k===key)+'"><h3>'+p.n+'<small>'+p.t+'</small></h3><p>'+p.d+'</p></button>'}).join('');
+  $('patterns').onclick=function(e){var b=e.target.closest('.pat');if(!b)return;key=b.dataset.k;[].forEach.call(this.children,function(x){x.setAttribute('aria-pressed',x===b)});if(running)stop();};
+  document.querySelectorAll('[data-min]').forEach(function(b){b.onclick=function(){mins=+b.dataset.min;document.querySelectorAll('[data-min]').forEach(function(x){x.classList.toggle('on',x===b)});if(!running)$('left').textContent=mins+':00';}});
+  function tone(up,sec){
+    if(!$('sound').checked)return;
+    ac=ac||new (window.AudioContext||window.webkitAudioContext)();
+    var o=ac.createOscillator(),g=ac.createGain(),t=ac.currentTime;
+    o.type='sine';o.frequency.setValueAtTime(up?196:262,t);o.frequency.linearRampToValueAtTime(up?262:196,t+sec);
+    g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.05,t+.4);g.gain.linearRampToValueAtTime(0,t+sec);
+    o.connect(g).connect(ac.destination);o.start(t);o.stop(t+sec);
+  }
+  function fmt(ms){var s=Math.max(0,Math.ceil(ms/1000));return Math.floor(s/60)+':'+('0'+s%60).slice(-2)}
+  function run(i){
+    if(!running)return;
+    var steps=P[key].s;
+    if(i>=steps.length){i=0;breaths++;$('breaths').textContent=breaths;}
+    if(Date.now()>=end&&i===0){stop(true);return;}
+    var st=steps[i],ms=st[1]*1000;
+    orb.style.transitionDuration=st[1]+'s';orb.style.transform='scale('+st[2]+')';
+    $('phase').textContent=st[0];
+    if(/in/.test(st[0]))tone(true,st[1]);else if(/out/.test(st[0]))tone(false,st[1]);
+    var t0=Date.now();
+    (function cd(){if(!running)return;var r=ms-(Date.now()-t0);$('count').textContent=Math.ceil(r/1000)||'';
+      $('left').textContent=fmt(end-Date.now());$('ring').style.strokeDashoffset=301.6*Math.max(0,(end-Date.now())/(mins*60000));
+      if(r>0)timer=setTimeout(cd,100);else run(i+1);})();
+  }
+  function stop(done){running=false;clearTimeout(timer);orb.style.transitionDuration='1.5s';orb.style.transform='scale(.7)';$('count').textContent='';
+    $('phase').textContent=done?'Beautifully done.':'Paused';$('go').textContent='Begin';}
+  $('go').onclick=function(){
+    if(running)return stop();
+    running=true;breaths=0;$('breaths').textContent=0;end=Date.now()+mins*60000;this.textContent='Stop';run(0);
+  };
+})();
+</script>
+</body>
+</html>
